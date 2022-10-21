@@ -1,3 +1,6 @@
+import { PLAYER } from "../constants/objects";
+import Coordinate from "./Coordinate";
+
 class Matrix {
   static matrix: string[][] = [];
 
@@ -7,7 +10,7 @@ class Matrix {
     this.buildGame(document.querySelector(".matrix")!);
   }
 
-  buildGame(element: HTMLElement): void {
+  private buildGame(element: HTMLElement): void {
     let p: string = "";
     Matrix.matrix.forEach(row => {
       p += `<div class="cell">`;
@@ -18,6 +21,17 @@ class Matrix {
     });
     console.log({ p });
     element.innerHTML = p;
+  }
+
+  static findPlayer(): Coordinate {
+    let playerCoordinate: Coordinate;
+    Matrix.matrix.forEach((row, rowIdx) => {
+      row.forEach((item, itemIdx) => {
+        if (item !== PLAYER) return;
+        playerCoordinate = new Coordinate(itemIdx, rowIdx);
+      });
+    });
+    return playerCoordinate!;
   }
 }
 
