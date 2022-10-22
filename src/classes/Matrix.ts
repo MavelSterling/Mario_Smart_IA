@@ -1,4 +1,4 @@
-import { PLAYER } from "../constants/objects";
+import Objects from "../constants/objects";
 import Coordinate from "./Coordinate";
 
 class Matrix {
@@ -19,7 +19,6 @@ class Matrix {
       });
       p += `</div>`;
     });
-    console.log({ p });
     element.innerHTML = p;
   }
 
@@ -27,7 +26,7 @@ class Matrix {
     let playerCoordinate: Coordinate;
     Matrix.matrix.forEach((row, rowIdx) => {
       row.forEach((item, itemIdx) => {
-        if (item !== PLAYER) return;
+        if (item !== Objects.PLAYER) return;
         playerCoordinate = new Coordinate(itemIdx, rowIdx);
       });
     });
