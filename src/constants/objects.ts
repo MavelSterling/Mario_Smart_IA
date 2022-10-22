@@ -1,6 +1,6 @@
 export type Object = "0" | "1" | "2" | "3" | "4" | "5" | "6";
 
-enum Objects {
+enum OBJECTS {
   BLANK = "0",
   WALL = "1",
   PLAYER = "2",
@@ -10,4 +10,4 @@ enum Objects {
   PRINCESS = "6",
 }
 
-export default Objects;
+export default OBJECTS;

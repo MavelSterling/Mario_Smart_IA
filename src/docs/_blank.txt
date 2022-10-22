@@ -1,0 +1,2 @@
+when moving mario position.
+-update cost
