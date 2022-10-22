@@ -23,14 +23,14 @@ class Matrix {
   }
 
   static findPlayer(): Coordinate {
-    let playerCoordinate: Coordinate;
+    let playerPosition: Coordinate;
     Matrix.matrix.forEach((row, rowIdx) => {
       row.forEach((item, itemIdx) => {
         if (item !== Objects.PLAYER) return;
-        playerCoordinate = new Coordinate(itemIdx, rowIdx);
+        playerPosition = new Coordinate(rowIdx, itemIdx);
       });
     });
-    return playerCoordinate!;
+    return playerPosition!;
   }
 }
 
