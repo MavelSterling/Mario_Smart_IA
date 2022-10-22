@@ -11,3 +11,32 @@
 html {
   font-family: "Poppins", sans-serif;
 }
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #121212;
+  color: white;
+}
+
+.input__container {
+  position: fixed;
+  top: 0;
+}
+
+.matrix {
+  max-width: 400px;
+  text-align: center;
+}
+
+.cell {
+  display: flex;
+}
+
+.cell__item {
+  flex: 1;
+}
