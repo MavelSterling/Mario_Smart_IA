@@ -1,4 +1,5 @@
 import { Mario, Matrix, Node, Coordinate, Solution } from "./classes";
+import OBJECTS from "./constants/objects";
 import "./style.css";
 
 const MAIN_GAME =
@@ -15,8 +16,8 @@ document.getElementById("inputFile")!.addEventListener("change", function () {
   fr.readAsText(this.files[0]);
 });
 
-new Matrix(MAIN_GAME);
-main();
+// new Matrix(MAIN_GAME);
+// main();
 
 function main() {
   new Mario(Matrix.findPlayer());
@@ -73,6 +74,8 @@ function main() {
   }
 
   Solution.solution = bfs[0].path;
+  Solution.solution.forEach(Solution.buildNodeCost);
+  Solution.buildTotalCost();
 
   console.log("--SOLUTION--");
   for (let i = 0; i < Solution.solution.length; i++) {
@@ -81,10 +84,7 @@ function main() {
     );
   }
   console.log("STATS");
-  console.log(
-    "Total cost:",
-    Solution.solution.reduce((acc, c) => c.cost + acc, 0)
-  );
+  console.log("Total cost:", Solution.cost);
 
   //mario.walk(new Coordinate(mario.position.x - 1, mario.position.y));
 
@@ -93,10 +93,16 @@ function main() {
   //     console.log(`(${x},${y}):`, Matrix.matrix[x][y]);
   //   }
   // }
+  Solution.solution.shift();
+  animate();
 }
 
 function animate(): void {
-  setInterval(() => {
-    console.log("animation");
+  const id = setInterval(() => {
+    if (!Solution.solution.length) {
+      clearInterval(id);
+      return;
+    }
+    Matrix.updateGame(Mario.position, Solution.solution.shift()!.position);
   }, 500);
 }

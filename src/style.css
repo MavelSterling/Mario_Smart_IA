@@ -26,17 +26,31 @@ body {
 .input__container {
   position: fixed;
   top: 0;
+  left: 0;
 }
 
-.matrix {
-  max-width: 400px;
+.app {
+  width: 400px;
+}
+
+.app__title {
   text-align: center;
 }
 
-.cell {
-  display: flex;
+.matrix {
+  width: 100%;
+  margin-top: 0.3rem;
 }
 
-.cell__item {
+.row {
+  display: flex;
+  width: 100%;
+}
+
+.item {
   flex: 1;
+  padding: 0.3rem;
+  width: 64px;
+  height: 64px;
+  border: 2px solid white;
 }
