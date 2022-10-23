@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mario Smart IA</title>
   </head>
-  <body>
+  <body class="open">
     <div class="input__container">
       <input type="file" name="inputFile" id="inputFile" />
     </div>
@@ -15,6 +15,38 @@
       <div class="matrix"></div>
     </div>
     <pre class="info"></pre>
+    <nav class="sidebar">
+      <div class="sidebar-inner">
+        <header class="sidebar-header">
+          <h2 class="sidebar-title">Settings</h2>
+          <button type="button" class="sidebar-burger toggle__sidebar">
+            <img src="/settings.png" class="sidebar-logo" />
+          </button>
+        </header>
+        <nav class="sidebar-menu">
+          <div class="animation__settings">
+            <form class="animation__form">
+              <div class="settings__fields">
+                <div class="settings__field">
+                  <label for="interval">Animation Interval</label>
+                  <p>milliseconds</p>
+                  <input type="number" name="interval" id="interval" min="200" />
+                </div>
+              </div>
+              <button class="init__game" type="submit">Start</button>
+            </form>
+          </div>
+        </nav>
+        <div class="sidebar-reload">
+          <h3 class="sidebar-title">Reset Game</h3>
+          <button type="button" class="sidebar-reload-button">
+            <img src="/reload.png" class="sidebar-reload-logo" />
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <script type="text/javascript"></script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

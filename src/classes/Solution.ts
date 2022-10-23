@@ -57,6 +57,11 @@ class Solution {
   static buildTotalCost() {
     Solution.cost = Solution.solution.reduce((acc, c) => c.cost + acc, 0);
   }
+
+  static reset() {
+    Solution.cost = 0;
+    Solution.solution = [];
+  }
 }
 
 export default Solution;

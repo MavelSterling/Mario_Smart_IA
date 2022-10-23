@@ -1,6 +1,22 @@
-import { Mario, Matrix, Node, Coordinate, Solution } from "./classes";
-import OBJECTS from "./constants/objects";
+import { Animation, Coordinate, Mario, Matrix, Node, Solution } from "./classes";
+import { AnimationSetup } from "./classes/Animation";
 import "./style.css";
+
+let MATRIX: string;
+let INTERVAL_ID: number | undefined;
+let bfs: Node[] = [];
+
+const reloadGame = (): void => {
+  if (!Matrix.matrix.length) return;
+  clearInterval(INTERVAL_ID);
+  Mario.reset();
+  Solution.reset();
+  bfs = [];
+  const initAnimationButton = document.querySelector(".init__game") as HTMLButtonElement;
+  initAnimationButton.removeAttribute("disabled");
+  new Matrix(MATRIX);
+  main();
+};
 
 const MAIN_GAME =
   "1 0 0 0 0 0 0 0 1 1\r\n0 3 1 1 0 1 1 0 0 1\r\n1 1 1 1 0 1 1 1 3 0\r\n0 0 0 0 0 1 1 1 1 0\r\n2 1 1 1 0 0 0 0 5 5\r\n0 0 0 1 0 1 1 1 1 5\r\n0 1 0 0 0 5 5 5 0 0\r\n0 1 1 0 1 1 1 1 1 0\r\n0 4 4 0 1 1 1 6 0 0\r\n1 1 1 1 1 1 1 0 1 1";
@@ -8,8 +24,10 @@ const MAIN_GAME =
 document.getElementById("inputFile")!.addEventListener("change", function () {
   var fr = new FileReader();
   fr.onload = function () {
+    reloadGame();
     console.log("result", fr.result);
     new Matrix(fr.result as string);
+    MATRIX = fr.result as string;
     main();
   };
   //@ts-ignore
@@ -23,7 +41,6 @@ function main() {
   new Mario(Matrix.findPlayer());
 
   let currentNode: Node = new Node(null, Mario.position, Matrix.matrix);
-  const bfs: Node[] = [];
 
   bfs.push(currentNode);
   let it = 10;
@@ -94,15 +111,44 @@ function main() {
   //   }
   // }
   Solution.solution.shift();
-  animate();
+  // animate();
 }
 
 function animate(): void {
+  if (!Matrix.matrix.length) return;
   const id = setInterval(() => {
     if (!Solution.solution.length) {
       clearInterval(id);
       return;
     }
     Matrix.updateGame(Mario.position, Solution.solution.shift()!.position);
-  }, 500);
+  }, Animation.interval);
+  INTERVAL_ID = id;
 }
+
+const toggleSidebar = () => document.body.classList.toggle("open");
+
+const toggleSidebarButton = document.querySelector(".toggle__sidebar") as HTMLButtonElement;
+toggleSidebarButton?.addEventListener("click", toggleSidebar);
+
+const initAnimationForm = document.querySelector(".animation__form") as HTMLFormElement;
+
+initAnimationForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  if (!Matrix.matrix.length) return;
+  // @ts-ignore
+  const data: AnimationSetup = Object.fromEntries(new FormData(initAnimationForm));
+
+  data.interval = Number(data.interval);
+  Animation.setup({
+    ...data,
+  });
+
+  const initAnimationButton = document.querySelector(".init__game") as HTMLButtonElement;
+  initAnimationButton.toggleAttribute("disabled");
+
+  animate();
+});
+
+const reloadButton = document.querySelector(".sidebar-reload-button") as HTMLButtonElement;
+reloadButton.addEventListener("click", reloadGame);

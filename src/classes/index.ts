@@ -1,3 +1,4 @@
+export { default as Animation } from "./Animation";
 export { default as Coordinate } from "./Coordinate";
 export { default as Mario } from "./Mario";
 export { default as Matrix } from "./Matrix";

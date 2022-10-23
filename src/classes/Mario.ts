@@ -104,6 +104,10 @@ class Mario {
   private static isFlowerAvailable(): boolean {
     return Mario._powerUps.flower.shotsLeft !== 0;
   }
+
+  static reset() {
+    Mario._powerUps = INITIAL_POWERUPS;
+  }
 }
 
 export default Mario;
