@@ -6,7 +6,7 @@ let MATRIX: string;
 let INTERVAL_ID: number | undefined;
 let bfs: Node[] = [];
 
-const reloadGame = (): void => {
+const reloadGame = (sameGame: boolean = true): void => {
   if (!Matrix.matrix.length) return;
   clearInterval(INTERVAL_ID);
   Mario.reset();
@@ -14,8 +14,8 @@ const reloadGame = (): void => {
   bfs = [];
   const initAnimationButton = document.querySelector(".init__game") as HTMLButtonElement;
   initAnimationButton.removeAttribute("disabled");
-  new Matrix(MATRIX);
-  main();
+  sameGame && new Matrix(MATRIX);
+  sameGame && main();
 };
 
 const MAIN_GAME =
@@ -24,7 +24,7 @@ const MAIN_GAME =
 document.getElementById("inputFile")!.addEventListener("change", function () {
   var fr = new FileReader();
   fr.onload = function () {
-    reloadGame();
+    reloadGame(false);
     console.log("result", fr.result);
     new Matrix(fr.result as string);
     MATRIX = fr.result as string;
@@ -151,4 +151,4 @@ initAnimationForm.addEventListener("submit", function (e) {
 });
 
 const reloadButton = document.querySelector(".sidebar-reload-button") as HTMLButtonElement;
-reloadButton.addEventListener("click", reloadGame);
+reloadButton.addEventListener("click", () => reloadGame());

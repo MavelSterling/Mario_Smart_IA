@@ -55,7 +55,10 @@ class Matrix {
       img.src = `/${OBJECTS.PLAYER}.png`;
     }
     nextMarioElement.replaceWith(img);
+    Matrix.updateGameStats();
   }
+
+  private static updateGameStats() {}
 
   static findPlayer(): Coordinate {
     let playerPosition: Coordinate;
