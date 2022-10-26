@@ -167,9 +167,6 @@ body.open .sidebar {
   place-items: center;
 }
 
-body.open .sidebar-burger {
-}
-
 .sidebar-logo,
 .sidebar-reload-logo {
   height: 32px;
@@ -214,6 +211,22 @@ body.open .sidebar-burger {
   outline: none;
   height: 2rem;
   border-bottom: 2px solid white;
+}
+
+.settings__field > select {
+  border: none;
+  outline: none;
+  height: 2.5rem;
+  text-transform: capitalize;
+  font-weight: 600;
+  margin-top: 0.4rem;
+  background-color: #f6c90e;
+  color: #121212;
+}
+
+.settings__field > select > option {
+  border: none;
+  outline: none;
 }
 
 .settings__field > p {

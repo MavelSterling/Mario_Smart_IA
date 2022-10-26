@@ -1,5 +1,6 @@
 import { Animation, Mario, Matrix, Node, Solution, SearchAlgorithms } from "./classes";
 import { AnimationSetup } from "./classes/Animation";
+import Algorithm from "./types/Algorithm";
 import "./style.css";
 
 let MATRIX: string;
@@ -9,9 +10,9 @@ let nodeList: Node[] = [];
 document.getElementById("inputFile")!.addEventListener("change", function () {
   var fr = new FileReader();
   fr.onload = function () {
-    reloadGame(false);
     new Matrix(fr.result as string);
     MATRIX = fr.result as string;
+    reloadGame(false);
   };
   //@ts-ignore
   fr.readAsText(this.files[0]);
@@ -33,7 +34,10 @@ const resetGame = () => {
 };
 
 const reloadGame = (sameGame: boolean = true): void => {
-  if (Matrix.isEmpty()) return;
+  if (Matrix.isEmpty()) {
+    alert("Select a game first");
+    return;
+  }
   resetGame();
   if (!sameGame) return;
   new Matrix(MATRIX);
@@ -41,28 +45,33 @@ const reloadGame = (sameGame: boolean = true): void => {
 
 const startGame = (e: SubmitEvent) => {
   e.preventDefault();
-  if (Matrix.isEmpty()) return;
+  if (Matrix.isEmpty()) {
+    alert("Select a game first");
+    return;
+  }
   const data: AnimationSetup = Object.fromEntries(new FormData(initAnimationForm) as any) as AnimationSetup;
   data.interval = Number(data.interval);
   Animation.setup({
     ...data,
   });
   initAnimationButton.toggleAttribute("disabled");
-  main();
+  main(data.algorithm);
 };
 
 toggleSidebarButton.addEventListener("click", toggleSidebar);
 initAnimationForm.addEventListener("submit", startGame);
 reloadButton.addEventListener("click", () => reloadGame());
 
-// const MAIN_GAME = "1 0 0 0 0 0 0 0 1 1\r\n0 3 1 1 0 1 1 0 0 1\r\n1 1 1 1 0 1 1 1 3 0\r\n0 0 0 0 0 1 1 1 1 0\r\n2 1 1 1 0 0 0 0 5 5\r\n0 0 0 1 0 1 1 1 1 5\r\n0 1 0 0 0 5 5 5 0 0\r\n0 1 1 0 1 1 1 1 1 0\r\n0 4 4 0 1 1 1 6 0 0\r\n1 1 1 1 1 1 1 0 1 1";
-
-// new Matrix(MAIN_GAME);
-// main();
-
-function main() {
-  SearchAlgorithms.breadthFirstSearch(nodeList);
-
+function main(algorithm: Algorithm) {
+  switch (algorithm) {
+    case Algorithm.BREADTH_FIRST_SEARCH:
+      SearchAlgorithms.breadthFirstSearch(nodeList);
+      break;
+    default:
+      alert("Invalid algorithm");
+      resetGame();
+      return;
+  }
   animate();
 }
 

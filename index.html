@@ -45,7 +45,15 @@
                 <div class="settings__field">
                   <label for="interval">Animation Interval</label>
                   <p>milliseconds</p>
-                  <input type="number" name="interval" id="interval" min="200" />
+                  <input type="number" name="interval" id="interval" min="200" value="500" />
+                </div>
+                <div class="settings__field">
+                  <label for="algorithm">Algorithm</label>
+                  <p>Which search algorithm to use</p>
+                  <select name="algorithm" id="algorithm">
+                    <option value="BREADTH_FIRST_SEARCH">Breadth First Search</option>
+                    <option value="DEPTH_FIRST_SEARCH">Depth First Search</option>
+                  </select>
                 </div>
               </div>
               <button class="init__game" type="submit">Start</button>
