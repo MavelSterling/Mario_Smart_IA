@@ -6,17 +6,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mario Smart IA</title>
   </head>
-  <body>
+  <body class="open">
     <div class="input__container">
       <input type="file" name="inputFile" id="inputFile" />
     </div>
-    <div id="app">
-      <div>
-        <h1>Mario Smart IA</h1>
-        <div class="matrix"></div>
+    <div class="stats__layout">
+      <div class="stats__container">
+        <h2>Stats</h2>
+        <div class="stats">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore reiciendis nam eum perspiciatis eius praesentium, veritatis quas corporis dicta aut
+          veniam reprehenderit, obcaecati delectus fugit nemo unde id, tempora hic enim excepturi. Cupiditate sapiente ratione repellendus, sed earum vel ipsam
+          provident voluptatum tempore nesciunt nostrum, temporibus eaque. Cum quam sequi illum blanditiis, aliquid ipsa voluptate pariatur! Ea debitis
+          consequuntur consectetur, ullam dicta praesentium repellendus, ex et harum libero sit exercitationem est repudiandae natus, veniam impedit qui
+          expedita? Iste assumenda expedita quod! Odio illum hic quo temporibus earum dicta in, tenetur harum, praesentium rem repudiandae vero rerum,
+          reiciendis accusantium veniam eligendi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, velit libero repellat eius architecto, unde
+          dolore inventore asperiores sint aliquam quidem! Id quo dignissimos exercitationem, voluptas vel maiores accusantium, tempora suscipit odio porro
+          dolor nulla alias, est numquam vero. Laborum saepe reiciendis facere in minus a nihil ipsa cupiditate nulla.
+        </div>
       </div>
     </div>
+    <div id="app">
+      <h1 class="app__title">Mario Smart IA</h1>
+      <div class="matrix"></div>
+    </div>
     <pre class="info"></pre>
+    <nav class="sidebar">
+      <div class="sidebar-inner">
+        <header class="sidebar-header">
+          <h2 class="sidebar-title">Settings</h2>
+          <button type="button" class="sidebar-burger toggle__sidebar">
+            <img src="/settings.png" class="sidebar-logo" />
+          </button>
+        </header>
+        <nav class="sidebar-menu">
+          <div class="animation__settings">
+            <form class="animation__form">
+              <div class="settings__fields">
+                <div class="settings__field">
+                  <label for="interval">Animation Interval</label>
+                  <p>milliseconds</p>
+                  <input type="number" name="interval" id="interval" min="200" value="500" />
+                </div>
+                <div class="settings__field">
+                  <label for="algorithm">Algorithm</label>
+                  <p>Which search algorithm to use</p>
+                  <select name="algorithm" id="algorithm">
+                    <option value="BREADTH_FIRST_SEARCH">Breadth First Search</option>
+                    <option value="DEPTH_FIRST_SEARCH">Depth First Search</option>
+                  </select>
+                </div>
+              </div>
+              <button class="init__game" type="submit">Start</button>
+            </form>
+          </div>
+        </nav>
+        <div class="sidebar-reload">
+          <h3 class="sidebar-title">Reset Game</h3>
+          <button type="button" class="sidebar-reload-button">
+            <img src="/reload.png" class="sidebar-reload-logo" />
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <script type="text/javascript"></script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
