@@ -36,11 +36,13 @@ class Matrix {
     Matrix.element.innerHTML = game;
   }
 
+  static isEmpty(): boolean {
+    return !Matrix.matrix.length;
+  }
+
   static updateGame(currentCoordinate: Coordinate, nextCoordinate: Coordinate) {
     Mario.position = nextCoordinate;
-    console.log({ current: currentCoordinate, next: nextCoordinate });
     const MarioElement = document.querySelector(`.c${currentCoordinate.x}-${currentCoordinate.y}`)! as HTMLImageElement;
-    console.log("Mario", MarioElement);
     const span = document.createElement("span");
     span.classList.add("item");
     span.classList.add(`c${currentCoordinate.x}-${currentCoordinate.y}`);
