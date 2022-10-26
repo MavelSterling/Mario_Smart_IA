@@ -1,18 +1,51 @@
 import type { Object } from "../constants/objects";
+import OBJECTS from "../constants/objects";
 import Coordinate from "./Coordinate";
 import Matrix from "./Matrix";
 class Node {
-  father: Node | null;
-  coordinate: Coordinate;
-  //leaves: Node[] = [];
-  depth: number = -1;
-  cost: number = -1;
+  father: Node | null = null;
+  path: Node[] = [];
+  position: Coordinate;
+  gameState: string[][];
+  depth: number = 0;
+  cost: number = 0;
   object: Object;
 
-  constructor(father = null, coordinate: Coordinate) {
-    this.father = father;
-    this.coordinate = coordinate;
-    this.object = Matrix.matrix[coordinate.x][coordinate.y] as Object;
+  constructor(father: Node | null, position: Coordinate, gameState: string[][]) {
+    this.position = position;
+    this.gameState = gameState;
+    this.object = Matrix.matrix[position.x][position.y] as Object;
+
+    if (father) this.path = [...father.path];
+    this.path.push(this);
+  }
+
+  public isBlank(): boolean {
+    return this.object === OBJECTS.BLANK;
+  }
+
+  public isWall(): boolean {
+    return this.object === OBJECTS.WALL;
+  }
+
+  public isPlayer(): boolean {
+    return this.object === OBJECTS.PLAYER;
+  }
+
+  public isStar(): boolean {
+    return this.object === OBJECTS.STAR;
+  }
+
+  public isFlower(): boolean {
+    return this.object === OBJECTS.FLOWER;
+  }
+
+  public isBowser(): boolean {
+    return this.object === OBJECTS.BOWSER;
+  }
+
+  public isPrincess(): boolean {
+    return this.object === OBJECTS.PRINCESS;
   }
 }
 
