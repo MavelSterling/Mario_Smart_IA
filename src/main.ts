@@ -26,9 +26,11 @@ const reloadButton = document.querySelector(".sidebar-reload-button") as HTMLBut
 const toggleSidebar = () => document.body.classList.toggle("open");
 
 const resetGame = () => {
+  document.querySelector(".stats__layout")?.classList.remove("show");
   clearInterval(INTERVAL_ID);
   Mario.reset();
   Solution.reset();
+  Matrix.clear();
   nodeList = [];
   initAnimationButton.removeAttribute("disabled");
 };
@@ -63,15 +65,27 @@ initAnimationForm.addEventListener("submit", startGame);
 reloadButton.addEventListener("click", () => reloadGame());
 
 function main(algorithm: Algorithm) {
-  switch (algorithm) {
-    case Algorithm.BREADTH_FIRST_SEARCH:
-      SearchAlgorithms.breadthFirstSearch(nodeList);
-      break;
-    default:
-      alert("Invalid algorithm");
-      resetGame();
-      return;
+  const start = Date.now();
+  try {
+    switch (algorithm) {
+      case Algorithm.BREADTH_FIRST_SEARCH:
+        SearchAlgorithms.breadthFirstSearch(nodeList);
+        break;
+      default:
+        alert("Invalid algorithm");
+        resetGame();
+        return;
+    }
+  } catch (error) {
+    alert(error);
+    return;
   }
+  const end = Date.now();
+  const time = document.querySelector(".stats__time") as HTMLDivElement;
+  time.innerHTML = `${end - start} ms`;
+  Solution.buildSolution();
+
+  Matrix.updateGameStats();
   animate();
 }
 

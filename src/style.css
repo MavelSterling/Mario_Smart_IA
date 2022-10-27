@@ -35,6 +35,10 @@ body {
   color: white;
 }
 
+.show {
+  visibility: visible !important;
+}
+
 .input__container {
   position: fixed;
   top: 0;
@@ -46,6 +50,7 @@ body {
 }
 
 .stats__layout {
+  visibility: hidden;
   position: fixed;
   top: 0;
   left: 0;
@@ -78,6 +83,55 @@ body {
 .stats__container::-webkit-scrollbar-thumb {
   background-color: #f6c90e;
   border-radius: 20px;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stats h3 {
+  color: #f6c90e;
+}
+
+.stats__nodes,
+.stats__expanded {
+  display: flex;
+  overflow-x: auto;
+}
+
+.stats__node {
+}
+
+.stats__nodes__container,
+.stats__expanded__container {
+  display: flex;
+  align-items: start;
+  gap: 0.3rem;
+}
+
+.stats__nodes__quantity,
+.stats__expanded__quantity,
+.stats__tree__depth {
+  /* margin-right: auto; */
+  letter-spacing: 0.1rem;
+}
+
+.stats__expanded::-webkit-scrollbar,
+.stats__nodes::-webkit-scrollbar {
+  background-color: #121212;
+  height: 0.3rem;
+}
+.stats__expanded::-webkit-scrollbar-button,
+.stats__nodes::-webkit-scrollbar-button {
+  display: none;
+}
+
+.stats__expanded::-webkit-scrollbar-thumb,
+.stats__nodes::-webkit-scrollbar-thumb {
+  background-color: #f6c90e;
+  border-radius: 5px;
 }
 
 .app {
