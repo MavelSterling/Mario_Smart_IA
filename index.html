@@ -8,20 +8,29 @@
   </head>
   <body class="open">
     <div class="input__container">
+      <h4>Select a game</h4>
       <input type="file" name="inputFile" id="inputFile" />
     </div>
     <div class="stats__layout">
       <div class="stats__container">
         <h2>Stats</h2>
         <div class="stats">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore reiciendis nam eum perspiciatis eius praesentium, veritatis quas corporis dicta aut
-          veniam reprehenderit, obcaecati delectus fugit nemo unde id, tempora hic enim excepturi. Cupiditate sapiente ratione repellendus, sed earum vel ipsam
-          provident voluptatum tempore nesciunt nostrum, temporibus eaque. Cum quam sequi illum blanditiis, aliquid ipsa voluptate pariatur! Ea debitis
-          consequuntur consectetur, ullam dicta praesentium repellendus, ex et harum libero sit exercitationem est repudiandae natus, veniam impedit qui
-          expedita? Iste assumenda expedita quod! Odio illum hic quo temporibus earum dicta in, tenetur harum, praesentium rem repudiandae vero rerum,
-          reiciendis accusantium veniam eligendi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, velit libero repellat eius architecto, unde
-          dolore inventore asperiores sint aliquam quidem! Id quo dignissimos exercitationem, voluptas vel maiores accusantium, tempora suscipit odio porro
-          dolor nulla alias, est numquam vero. Laborum saepe reiciendis facere in minus a nihil ipsa cupiditate nulla.
+          <h3>Node path</h3>
+          <div class="stats__nodes__container">
+            <div class="stats__nodes__quantity"></div>
+            <div class="stats__nodes"></div>
+          </div>
+          <h3>Expanded nodes</h3>
+          <div class="stats__expanded__container">
+            <div class="stats__expanded__quantity"></div>
+            <div class="stats__expanded"></div>
+          </div>
+          <h3>Tree Depth</h3>
+          <div class="stats__tree__depth"></div>
+          <h3>Solution cost</h3>
+          <div class="stats__cost"></div>
+          <h3>Algorithm execution time</h3>
+          <div class="stats__time"></div>
         </div>
       </div>
     </div>
@@ -45,7 +54,7 @@
                 <div class="settings__field">
                   <label for="interval">Animation Interval</label>
                   <p>milliseconds</p>
-                  <input type="number" name="interval" id="interval" min="200" value="200" />
+                  <input type="number" name="interval" id="interval" min="200" value="500" />
                 </div>
                 <div class="settings__field">
                   <label for="algorithm">Algorithm</label>
