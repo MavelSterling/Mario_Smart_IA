@@ -1,7 +1,7 @@
 import Coordinate from "./Coordinate";
 
-const STAR_DEFAULT_DURATION = 6;
-const FLOWER_DEFAULT_SHOTS = 2;
+export const STAR_DEFAULT_DURATION = 6;
+export const FLOWER_DEFAULT_SHOTS = 2;
 
 interface Powers {
   star: {
