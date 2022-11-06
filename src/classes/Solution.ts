@@ -70,7 +70,8 @@ class Solution {
   static buildNodeCost(node: Node): void {
     switch (node.object) {
       case OBJECTS.BLANK:
-        node.cost += Mario.hasStar() ? 0.5 : 1;
+        node.cost += Mario.hasStar() ? 0.5 : 1//1;
+        console.log(node.cost)///////////////////////////////////
         break;
       case OBJECTS.BOWSER:
         if (Mario.hasStar()) {
@@ -78,7 +79,7 @@ class Solution {
         } else if (Mario.hasFlower()) {
           node.cost += 1;
         } else {
-          node.cost += 6;
+          node.cost += 6;//6
         }
         break;
       case OBJECTS.STAR:
