@@ -96,8 +96,8 @@ function main(algorithm: Algorithm) {
         SearchAlgorithms.breadthFirstSearch(nodeList);
         break;
       case UninformedAlgorithm.DEPTH_FIRST_SEARCH:
-        alert("DFS NOT IMPLEMENTED YET");
-        return;
+        SearchAlgorithms.depthFirstSearch(nodeList);
+        break;
       case UninformedAlgorithm.COST:
         alert("Cost NOT IMPLEMENTED YET");
         return;
