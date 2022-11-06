@@ -1,5 +1,4 @@
-import { Animation, Mario, Matrix, Node, Solution, SearchAlgorithms } from "./classes";
-import { AnimationSetup } from "./classes/Animation";
+import { Animation, Mario, Matrix, Node, SearchAlgorithms, Solution } from "./classes";
 import "./style.css";
 import Algorithm, { InformedAlgorithm, UninformedAlgorithm } from "./types/Algorithm";
 import AlgorithmType from "./types/AlgorithmType";
@@ -68,7 +67,6 @@ const startGame = (e: SubmitEvent) => {
   }
   const data: Settings = Object.fromEntries(new FormData(initAnimationForm) as any) as Settings;
   data.interval = Number(data.interval);
-  console.log(data);
   let selectedAlgorithm: Algorithm;
 
   if (data.algorithmType === AlgorithmType.UNINFORMED) {
