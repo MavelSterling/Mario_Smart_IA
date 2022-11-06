@@ -66,17 +66,9 @@ class SearchAlgorithms {
     while (queue.length && !currentNode.isPrincess()) {
       Solution.expandedNodes.push(queue.shift()!);
       if (!currentNode.isWall()) {
-        //GO LEFT
-        if (currentNode.position.y > 0) {
-          const newPosition = new Coordinate(currentNode.position.x, currentNode.position.y - 1);
-          if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
-            const newNode = new Node(currentNode, newPosition, Matrix.matrix);
-            !newNode.isWall() && queue.unshift(new Node(currentNode, newPosition, Matrix.matrix));
-          }
-        }
-        //GO UP
-        if (currentNode.position.x > 0) {
-          const newPosition = new Coordinate(currentNode.position.x - 1, currentNode.position.y);
+        //GO DOWN
+        if (currentNode.position.x < Matrix.matrix.length - 1) {
+          const newPosition = new Coordinate(currentNode.position.x + 1, currentNode.position.y);
           if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.unshift(new Node(currentNode, newPosition, Matrix.matrix));
@@ -90,9 +82,17 @@ class SearchAlgorithms {
             !newNode.isWall() && queue.unshift(new Node(currentNode, newPosition, Matrix.matrix));
           }
         }
-        //GO DOWN
-        if (currentNode.position.x < Matrix.matrix.length - 1) {
-          const newPosition = new Coordinate(currentNode.position.x + 1, currentNode.position.y);
+        //GO UP
+        if (currentNode.position.x > 0) {
+          const newPosition = new Coordinate(currentNode.position.x - 1, currentNode.position.y);
+          if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
+            const newNode = new Node(currentNode, newPosition, Matrix.matrix);
+            !newNode.isWall() && queue.unshift(new Node(currentNode, newPosition, Matrix.matrix));
+          }
+        }
+        //GO LEFT
+        if (currentNode.position.y > 0) {
+          const newPosition = new Coordinate(currentNode.position.x, currentNode.position.y - 1);
           if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.unshift(new Node(currentNode, newPosition, Matrix.matrix));
