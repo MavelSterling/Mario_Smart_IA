@@ -179,6 +179,17 @@ class Matrix {
     });
     return playerPosition!;
   }
+
+  static findPrincess(): Coordinate {
+    let playerPosition: Coordinate;
+    Matrix.matrix.forEach((row, rowIdx) => {
+      row.forEach((item, itemIdx) => {
+        if (item !== Objects.PRINCESS) return;
+        playerPosition = new Coordinate(rowIdx, itemIdx);
+      });
+    });
+    return playerPosition!;
+  }
 }
 
 export default Matrix;
