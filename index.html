@@ -57,11 +57,28 @@
                   <input type="number" name="interval" id="interval" min="200" value="500" />
                 </div>
                 <div class="settings__field">
-                  <label for="algorithm">Algorithm</label>
-                  <p>Which search algorithm to use</p>
-                  <select name="algorithm" id="algorithm">
+                  <label for="algorithmType">Algorithm type</label>
+                  <p>Which search algorithm type to use</p>
+                  <select name="algorithmType" id="algorithmType">
+                    <option value="UNINFORMED">Uninformed</option>
+                    <option value="INFORMED">Informed</option>
+                  </select>
+                </div>
+                <div class="settings__field uninformed__algorithms display-flex">
+                  <label for="uninformedAlgorithm">Algorithm</label>
+                  <p>Which uninformed search algorithm to use</p>
+                  <select name="uninformedAlgorithm" id="uninformedAlgorithm">
                     <option value="BREADTH_FIRST_SEARCH">Breadth First Search</option>
                     <option value="DEPTH_FIRST_SEARCH">Depth First Search</option>
+                    <option value="COST">Cost</option>
+                  </select>
+                </div>
+                <div class="settings__field informed__algorithms">
+                  <label for="informedAlgorithm">Algorithm</label>
+                  <p>Which informed search algorithm to use</p>
+                  <select name="informedAlgorithm" id="informedAlgorithm">
+                    <option value="GREEDY">Greedy</option>
+                    <option value="A*">A*</option>
                   </select>
                 </div>
               </div>
