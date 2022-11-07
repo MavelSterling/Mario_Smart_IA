@@ -70,7 +70,7 @@ class Solution {
   static buildNodeCost(node: Node): void {
     switch (node.object) {
       case OBJECTS.BLANK:
-        node.cost += Mario.hasStar() ? 0.5 : 1//1;
+        node.cost += Mario.hasStar() ? 0.5 : 1//1; #costo de los espacios blancos
         console.log(node.cost)///////////////////////////////////
         break;
       case OBJECTS.BOWSER:
@@ -79,7 +79,7 @@ class Solution {
         } else if (Mario.hasFlower()) {
           node.cost += 1;
         } else {
-          node.cost += 6;//6
+          node.cost += 6;//6 Costo del bowser
         }
         break;
       case OBJECTS.STAR:
@@ -91,7 +91,7 @@ class Solution {
         Mario.foundFlowerPowerUp();
         break;
       case OBJECTS.PRINCESS:
-        node.cost += Mario.hasStar() ? 0.5 : 1;
+        node.cost += Mario.hasStar() ? 0.5 : 1; //Costo de la princesa 1
       default:
         node.cost += 0;
         break;
