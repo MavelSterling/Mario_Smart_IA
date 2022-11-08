@@ -60,7 +60,23 @@ class Matrix {
     const span = document.createElement("span");
     span.classList.add("item");
     span.classList.add(`c${currentCoordinate.x}-${currentCoordinate.y}`);
-    MarioElement.replaceWith(span);
+
+    if (
+      Matrix.matrix[currentCoordinate.x][currentCoordinate.y] === Objects.BOWSER &&
+      !star.isPowered &&
+      !flower.isPowered
+    ) {
+      const img = document.createElement("img");
+      img.classList.add("item");
+      img.classList.add(`c${currentCoordinate.x}-${currentCoordinate.y}`);
+      img.src = `/${OBJECTS.BOWSER}.png`;
+      MarioElement.replaceWith(img);
+    } else {
+      MarioElement.replaceWith(span);
+    }
+    if (star.duration === 0) star.isPowered = false;
+    if (flower.shots === 0) flower.isPowered = false;
+
     const nextMarioElement = document.querySelector(`.c${nextCoordinate.x}-${nextCoordinate.y}`)! as HTMLImageElement;
     const img = document.createElement("img");
     img.classList.add("item");
@@ -98,9 +114,6 @@ class Matrix {
         break;
     }
 
-    if (star.duration === 0) star.isPowered = false;
-    if (flower.shots === 0) flower.isPowered = false;
-
     nextMarioElement.replaceWith(img);
   }
 
@@ -119,7 +132,8 @@ class Matrix {
     const expandedNodes = document.querySelector(".stats__expanded") as HTMLDivElement;
     let expandedNodesContainer: string = "";
     Solution.expandedNodes.forEach((node, idx, arr) => {
-      if (idx === arr.length - 1) expandedNodesContainer += `<span class="stats__node">(${node.position.x},${node.position.y})</span>`;
+      if (idx === arr.length - 1)
+        expandedNodesContainer += `<span class="stats__node">(${node.position.x},${node.position.y})</span>`;
       else expandedNodesContainer += `<span class="stats__node">(${node.position.x},${node.position.y}),</span>`;
     });
     const expandedNodesQty = document.querySelector(".stats__expanded__quantity") as HTMLDivElement;
@@ -165,6 +179,24 @@ class Matrix {
     });
     return playerPosition!;
   }
+
+  static findPrincess(): Coordinate {
+    let playerPosition: Coordinate;
+    Matrix.matrix.forEach((row, rowIdx) => {
+      row.forEach((item, itemIdx) => {
+        if (item !== Objects.PRINCESS) return;
+        playerPosition = new Coordinate(rowIdx, itemIdx);
+      });
+    });
+    return playerPosition!;
+  }
+
+  static heuristicValue( coordinates : Coordinate ) : number {
+    const coordinatePrincess : Coordinate = Matrix.findPrincess();
+    let manhattanDistance : number = Math.abs(coordinatePrincess.y - coordinates.y) + Math.abs(coordinatePrincess.x - coordinates.x); 
+    return manhattanDistance;
+  }
+
 }
 
 export default Matrix;
