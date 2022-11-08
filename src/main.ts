@@ -102,8 +102,8 @@ function main(algorithm: Algorithm) {
         SearchAlgorithms.uniformCostSearch(nodeList);
         break;
       case InformedAlgorithm.GREEDY:
-        alert("Greedy NOT IMPLEMENTED YET");
-        return;
+        SearchAlgorithms.greedySearch(nodeList);
+        break;
       case InformedAlgorithm.ASTAR:
         alert("A* NOT IMPLEMENTED YET");
         return;

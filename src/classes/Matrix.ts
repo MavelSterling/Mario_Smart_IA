@@ -179,6 +179,24 @@ class Matrix {
     });
     return playerPosition!;
   }
+
+  static findPrincess(): Coordinate {
+    let playerPosition: Coordinate;
+    Matrix.matrix.forEach((row, rowIdx) => {
+      row.forEach((item, itemIdx) => {
+        if (item !== Objects.PRINCESS) return;
+        playerPosition = new Coordinate(rowIdx, itemIdx);
+      });
+    });
+    return playerPosition!;
+  }
+
+  static heuristicValue( coordinates : Coordinate ) : number {
+    const coordinatePrincess : Coordinate = Matrix.findPrincess();
+    let manhattanDistance : number = Math.abs(coordinatePrincess.y - coordinates.y) + Math.abs(coordinatePrincess.x - coordinates.x); 
+    return manhattanDistance;
+  }
+
 }
 
 export default Matrix;
