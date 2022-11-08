@@ -4,6 +4,7 @@ import Matrix from "./Matrix";
 import Node from "./Node";
 import Solution from "./Solution";
 
+
 class SearchAlgorithms {
   static breadthFirstSearch(queue: Node[]) {
     new Mario(Matrix.findPlayer());
