@@ -99,8 +99,8 @@ function main(algorithm: Algorithm) {
         SearchAlgorithms.depthFirstSearch(nodeList);
         break;
       case UninformedAlgorithm.COST:
-        alert("Cost NOT IMPLEMENTED YET");
-        return;
+        SearchAlgorithms.uniformCostSearch(nodeList);
+        break;
       case InformedAlgorithm.GREEDY:
         alert("Greedy NOT IMPLEMENTED YET");
         return;
