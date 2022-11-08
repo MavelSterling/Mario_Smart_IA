@@ -190,6 +190,13 @@ class Matrix {
     });
     return playerPosition!;
   }
+
+  static heuristicValue( coordinates : Coordinate ) : number {
+    const coordinatePrincess : Coordinate = Matrix.findPrincess();
+    let manhattanDistance : number = Math.abs(coordinatePrincess.y - coordinates.y) + Math.abs(coordinatePrincess.x - coordinates.x); 
+    return manhattanDistance;
+  }
+
 }
 
 export default Matrix;
