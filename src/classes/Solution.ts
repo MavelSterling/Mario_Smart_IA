@@ -1,6 +1,7 @@
 import OBJECTS from "../constants/objects";
 import Mario from "./Mario";
-import Node from "./Node";
+import Node from './Node';
+import Coordinate from './Coordinate';
 class Solution {
   private static _cost: number = 0;
   private static _solution: Node[] = [];
@@ -109,17 +110,44 @@ class Solution {
     Solution.treeDepth = 0;
   }
 
+  static getChild(node: Node) {
+    return Solution.expandedNodes.find((child) => child.position === node.position);
+  }
+
+  static addChild(node: Node, child: Node){
+    
+    let newchild: Node = new Node(node, child.position, child.cost + node.cost);
+    node.children.push(newchild);
+    child.parent = node;
+
+    return newchild;
+  }
+
+  /*static findPath(node: Node) {
+    let currentNode = node;
+    let path: Node[] = [];
+    while (!currentNode.father === null) {
+      path.push(currentNode);
+      currentNode = currentNode.father;
+      return path;
+    }
+  }  */
+
   static costNode(node: Node) {
 
-    if (node.cost > Solution.cost) {
-      Solution.cost = node.cost;
-      Solution.solution.push(node);
-    }
-    if (node.father) {
-      Solution.costNode(node.father);
-    } 
-    if (node.object === OBJECTS.BLANK) {
-    }
+   let stack = []
+     stack.push(node.cost); 
+     while (stack.length > 0) { 
+      stack.sort();
+      const currentNode = stack.pop();
+      if (node.father) {
+        stack.push(node.father.cost);
+        node.father.cost = 0;
+        node.father.father = null;
+        } else {
+        node.father = null; 
+      }
+     }
 
   }
 

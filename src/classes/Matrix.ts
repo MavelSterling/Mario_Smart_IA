@@ -193,8 +193,8 @@ class Matrix {
 
   static heuristicValue( coordinates : Coordinate ) : number {
     const coordinatePrincess : Coordinate = Matrix.findPrincess();
-    let manhattanDistance : number = Math.abs(coordinatePrincess.y - coordinates.y) + Math.abs(coordinatePrincess.x - coordinates.x); 
-    return manhattanDistance;
+    let manhattanDistance : number = Math.abs((coordinatePrincess.y - coordinates.y) + (coordinatePrincess.x - coordinates.x)); 
+    return manhattanDistance + Solution.cost;
   }
 
 }
