@@ -115,6 +115,8 @@ class SearchAlgorithms {
     let currentNode: Node = new Node(null, Mario.position, Matrix.matrix);
     
     queue.push(currentNode);
+    console.log("comienzo");
+    this.printNodes(queue);
 
     // ############################################
 
@@ -159,6 +161,7 @@ class SearchAlgorithms {
         }
       }
       currentNode = queue[0];
+      console.log("######## Corte ciclo ######################");
     }
 
     try {
@@ -192,6 +195,16 @@ class SearchAlgorithms {
         else high = index_i;
     } 
     array.splice(index_i, 0, node);
+    this.printNodes(array);
+  }
+
+  static printNodes ( queue: Array<Node>) : void{
+    let arrayx : string = "[";
+    for( let i =0; i<queue.length; i++){
+      arrayx +=`<${queue[i].position.x},${queue[i].position.y}> # `
+    }
+    arrayx += "]";
+    console.log(arrayx);
   }
 
 }
