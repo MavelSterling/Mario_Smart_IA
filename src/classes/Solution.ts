@@ -108,6 +108,21 @@ class Solution {
     Solution.expandedNodes = [];
     Solution.treeDepth = 0;
   }
+
+  static costNode(node: Node) {
+
+    if (node.cost > Solution.cost) {
+      Solution.cost = node.cost;
+      Solution.solution.push(node);
+    }
+    if (node.father) {
+      Solution.costNode(node.father);
+    } 
+    if (node.object === OBJECTS.BLANK) {
+    }
+
+  }
+
 }
 
 export default Solution;
