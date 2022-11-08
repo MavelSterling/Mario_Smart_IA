@@ -109,6 +109,8 @@ class Solution {
     Solution.expandedNodes = [];
     Solution.treeDepth = 0;
   }
+
+  
 }
 
 export default Solution;
