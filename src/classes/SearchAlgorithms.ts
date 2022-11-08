@@ -186,7 +186,7 @@ class SearchAlgorithms {
     let high = array.length;
 
     while (index_i < high) { 
-        if (methodCalculateValue(array[index_i]) < methodCalculateValue(node)){
+        if (methodCalculateValue(array[index_i].position) < methodCalculateValue(node.position)){
           index_i+= 1;
         } 
         else high = index_i;
