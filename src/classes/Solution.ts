@@ -145,7 +145,7 @@ class Solution {
     }
   }
 
-  static costMoves(currentNode: Node, nextPosition: Node) {
+  static costMoves(currentNode: Node, nextPosition: Coordinate) {
 
     //const nextPositionOBJ = this.buildNodeCost(nextPosition);
     //const currentNodeOBJ = this.buildNodeCost(currentNode);
@@ -153,25 +153,28 @@ class Solution {
   
     const coordinatePrincess : Coordinate = Matrix.findPrincess();
 
-    let stackNode: any[] = []
+    let stackNode = [];
+    stackNode.push(currentNode); 
 
   while(stackNode.length != 0){
-    stackNode.sort();
 
+    stackNode.sort(); // sort nodes 
 
-    if ( nextPosition.position != coordinatePrincess) {
-         stackNode.push(nextPosition);
+    if ( nextPosition != coordinatePrincess) {
+
+         stackNode.push(nextPosition); //Add next position
+         const currentNodeStack = stackNode.pop(); // remove the last element
+         return currentNodeStack;
+
     
       } else {
-        const currentNodeStack = stackNode.pop();
 
         stackNode=[] // clean 
         stackNode.push(currentNode) // currentNode as father
-        return currentNodeStack;
+        return currentNode.cost;
       }
     }
     
-    return Solution.cost;
   }
       
     
