@@ -133,6 +133,7 @@ class Solution {
     return  node.get_next;
   }
 
+  /*
   static analyzeFirst(node: Node) {
     if (node.get_first == node.position){
       return true;
@@ -143,7 +144,8 @@ class Solution {
     if (node.get_next == node.position){
       return true;
     }
-  }
+  } 
+  */
 
   static costMoves(currentNode: Node, nextPosition: Coordinate) {
 
@@ -177,9 +179,6 @@ class Solution {
     
   }
       
-    
-
-    
 
   static costNode(node: Node) {
 
