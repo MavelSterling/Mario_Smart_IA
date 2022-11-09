@@ -3,6 +3,7 @@ import Mario from "./Mario";
 import Node from './Node';
 import Coordinate from './Coordinate';
 import Matrix from "./Matrix";
+import COSTS from '../constants/costs';
 class Solution {
   private static _cost: number = 0;
   private static _solution: Node[] = [];
@@ -125,6 +126,58 @@ class Solution {
   }
 
 
+  static get_first(node: Node) {
+    return  node.get_first;
+  }
+  static get_next(node: Node) {
+    return  node.get_next;
+  }
+
+  static analyzeFirst(node: Node) {
+    if (node.get_first == node.position){
+      return true;
+    }
+  }
+
+  static analyzeNext(node: Node) {
+    if (node.get_next == node.position){
+      return true;
+    }
+  }
+
+  static costMoves(currentNode: Node, nextPosition: Node) {
+
+    //const nextPositionOBJ = this.buildNodeCost(nextPosition);
+    //const currentNodeOBJ = this.buildNodeCost(currentNode);
+    
+  
+    const coordinatePrincess : Coordinate = Matrix.findPrincess();
+
+    let stackNode: any[] = []
+
+  while(stackNode.length != 0){
+    stackNode.sort();
+
+
+    if ( nextPosition.position != coordinatePrincess) {
+         stackNode.push(nextPosition);
+    
+      } else {
+        const currentNodeStack = stackNode.pop();
+
+        stackNode=[] // clean 
+        stackNode.push(currentNode) // currentNode as father
+        return currentNodeStack;
+      }
+    }
+    
+    return Solution.cost;
+  }
+      
+    
+
+    
+
   static costNode(node: Node) {
 
    let stack = []
@@ -140,7 +193,7 @@ class Solution {
 
       if(currentNode?.position == coordinatePrincess) {
               stack=[] // clean 
-              stack.push(currentNode)
+              stack.push(currentNode) // currentNode as father
               return currentNode;
 
       }else if(currentNode?.position != coordinatePrincess) {
@@ -149,12 +202,9 @@ class Solution {
 
         if(child) {
           stack.push(child);
-
-
         return ; }
         
         */
-     
           
       }
     

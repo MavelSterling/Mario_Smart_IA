@@ -226,7 +226,7 @@ class SearchAlgorithms {
     let methodCalculateValue : any;    
     if ( value === "cost"){
 
-      methodCalculateValue = Solution.costNode;
+      methodCalculateValue = Solution.costMoves;
 
     }else if ( value === "heuristic"){
       methodCalculateValue = Matrix.heuristicValue;
