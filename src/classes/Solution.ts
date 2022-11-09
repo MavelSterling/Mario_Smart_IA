@@ -2,6 +2,7 @@ import OBJECTS from "../constants/objects";
 import Mario from "./Mario";
 import Node from './Node';
 import Coordinate from './Coordinate';
+import Matrix from "./Matrix";
 class Solution {
   private static _cost: number = 0;
   private static _solution: Node[] = [];
@@ -116,37 +117,48 @@ class Solution {
 
   static addChild(node: Node, child: Node){
     
-    let newchild: Node = new Node(node, child.position, child.cost + node.cost);
-    node.children.push(newchild);
+    let newchild: Node = new Node(node, child.position, child.gameState);
+    Solution.expandedNodes.push(newchild);
     child.parent = node;
 
     return newchild;
   }
 
-  /*static findPath(node: Node) {
-    let currentNode = node;
-    let path: Node[] = [];
-    while (!currentNode.father === null) {
-      path.push(currentNode);
-      currentNode = currentNode.father;
-      return path;
-    }
-  }  */
 
   static costNode(node: Node) {
 
    let stack = []
-     stack.push(node.cost); 
-     while (stack.length > 0) { 
+     stack.push(node.father); 
+
+     while (stack.length !== 0) {
+
       stack.sort();
-      const currentNode = stack.pop();
-      if (node.father) {
-        stack.push(node.father.cost);
-        node.father.cost = 0;
-        node.father.father = null;
-        } else {
-        node.father = null; 
+
+      let currentNode = stack.pop();
+
+      const coordinatePrincess : Coordinate = Matrix.findPrincess();
+
+      if(currentNode?.position == coordinatePrincess) {
+              stack=[] // clean 
+              stack.push(currentNode)
+              return currentNode;
+
+      }else if(currentNode?.position != coordinatePrincess) {
+
+        /*const child = Solution.getChild(currentNode?.cost);
+
+        if(child) {
+          stack.push(child);
+
+
+        return ; }*/
+      
+
+
+          
       }
+    
+
      }
 
   }
