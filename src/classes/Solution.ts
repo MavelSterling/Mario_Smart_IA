@@ -3,7 +3,6 @@ import Mario from "./Mario";
 import Node from './Node';
 import Coordinate from './Coordinate';
 import Matrix from "./Matrix";
-import COSTS from '../constants/costs';
 class Solution {
   private static _cost: number = 0;
   private static _solution: Node[] = [];
@@ -162,25 +161,24 @@ class Solution {
          stackNode.sort(); // sort nodes 
          const currentNodeStack = stackNode.pop(); // remove the last element
 
-         const newPosition = new Coordinate(currentNodeStack?.x, currentNodeStack?.y);
+         //const newPosition = new Coordinate(currentNodeStack?.x, currentNodeStack?.y);
 
-         const newNodeChild = new Node(currentNode, newPosition, Matrix.matrix);
+         //let newNodeChild = new Node(currentNode, newPosition, Matrix.matrix);
+        
+         //let addNewNodeChild = Solution.addChild(currentNode,newNodeChild);
 
-         const addNewNodeChild = this.addChild(currentNode,newNodeChild);
+         //Solution.expandedNodes.push(addNewNodeChild);
 
-         const newNode = addNewNodeChild
-         let costs = newNode.cost;
-         return costs;
+         return currentNodeStack;
     
       } else {
 
         stackNode=[] // clean 
         stackNode.push(currentNode) // currentNode as father
-        let costs = currentNode.cost;
-        return costs;
+        return currentNode.position;
       }
     }
-    return Solution.costMoves;
+    return Solution.buildNodeCost;
   }
 
 }
