@@ -99,6 +99,7 @@ class Solution {
 
   static buildTotalCost() {
     Solution.cost = Solution.solution.reduce((acc, c) => c.cost + acc, 0);
+  
   }
 
   static reset() {
@@ -110,7 +111,7 @@ class Solution {
   }
 
   static costNode(node: Node) {
-
+    //let nodoSon: Node = new Node(null, Mario.position, Matrix.matrix);///
     if (node.cost > Solution.cost) {
       Solution.cost = node.cost;
       Solution.solution.push(node);
