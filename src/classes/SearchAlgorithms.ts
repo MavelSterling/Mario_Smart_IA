@@ -124,7 +124,7 @@ class SearchAlgorithms {
           const newPosition = new Coordinate(currentNode.position.x, currentNode.position.y - 1);
           if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
-            !newNode.isWall() && SearchAlgorithms.insertNodeByValue(queue,(new Node(currentNode, newPosition, Matrix.matrix)), "cost");
+            !newNode.isWall() && SearchAlgorithms.insertNodeByValue(queue,new Node(currentNode, newPosition, Matrix.matrix), "cost");
           }
         }
         //GO UP
@@ -132,7 +132,7 @@ class SearchAlgorithms {
           const newPosition = new Coordinate(currentNode.position.x - 1, currentNode.position.y);
           if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
-            !newNode.isWall() && SearchAlgorithms.insertNodeByValue(queue,(new Node(currentNode, newPosition, Matrix.matrix)), "cost");
+            !newNode.isWall() && SearchAlgorithms.insertNodeByValue(queue,new Node(currentNode, newPosition, Matrix.matrix), "cost");
           }
         }
         //GO RIGHT
@@ -140,7 +140,7 @@ class SearchAlgorithms {
           const newPosition = new Coordinate(currentNode.position.x, currentNode.position.y + 1);
           if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
-            !newNode.isWall() && SearchAlgorithms.insertNodeByValue(queue,(new Node(currentNode, newPosition, Matrix.matrix)), "cost");
+            !newNode.isWall() && SearchAlgorithms.insertNodeByValue(queue,new Node(currentNode, newPosition, Matrix.matrix), "cost");
           }
         }
         //GO DOWN
@@ -148,7 +148,7 @@ class SearchAlgorithms {
           const newPosition = new Coordinate(currentNode.position.x + 1, currentNode.position.y);
           if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
-            !newNode.isWall() && SearchAlgorithms.insertNodeByValue(queue,(new Node(currentNode, newPosition, Matrix.matrix)), "cost");
+            !newNode.isWall() && SearchAlgorithms.insertNodeByValue( queue, new Node(currentNode, newPosition, Matrix.matrix), "cost" );
           }
         }
       }
@@ -224,11 +224,10 @@ class SearchAlgorithms {
 
 
   static insertNodeByValue(array : Array<Node>, node: Node, value: string ): void {
-    let methodCalculateValue : any;
-    
+    let methodCalculateValue : any;    
     if ( value === "cost"){
 
-      methodCalculateValue = Solution.costNode;
+      methodCalculateValue = Solution.costMoves;
 
     }else if ( value === "heuristic"){
       methodCalculateValue = Matrix.heuristicValue;

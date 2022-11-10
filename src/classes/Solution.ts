@@ -1,6 +1,9 @@
 import OBJECTS from "../constants/objects";
 import Mario from "./Mario";
-import Node from "./Node";
+import Node from './Node';
+import Coordinate from './Coordinate';
+import Matrix from "./Matrix";
+import COSTS from '../constants/costs';
 class Solution {
   private static _cost: number = 0;
   private static _solution: Node[] = [];
@@ -99,7 +102,6 @@ class Solution {
 
   static buildTotalCost() {
     Solution.cost = Solution.solution.reduce((acc, c) => c.cost + acc, 0);
-  
   }
 
   static reset() {
@@ -110,18 +112,72 @@ class Solution {
     Solution.treeDepth = 0;
   }
 
-  static costNode(node: Node) {
-    //let nodoSon: Node = new Node(null, Mario.position, Matrix.matrix);///
-    if (node.cost > Solution.cost) {
-      Solution.cost = node.cost;
-      Solution.solution.push(node);
-    }
-    if (node.father) {
-      Solution.costNode(node.father);
-    } 
-    if (node.object === OBJECTS.BLANK) {
-    }
+  static getChild(node: Node) {
+    return Solution.expandedNodes.find((child) => child.position === node.position);
+  }
 
+  static addChild(node: Node, child: Node){
+    
+    let newchild: Node = new Node(node, child.position, child.gameState);
+    Solution.expandedNodes.push(newchild);
+    child.parent = node;
+
+    return newchild;
+  }
+
+
+  static get_first(node: Node) {
+    return  node.get_first;
+  }
+  static get_next(node: Node) {
+    return  node.get_next;
+  }
+
+  /*
+  static analyzeFirst(node: Node) {
+    if (node.get_first == node.position){
+      return true;
+    }
+  }
+
+  static analyzeNext(node: Node) {
+    if (node.get_next == node.position){
+      return true;
+    }
+  } 
+  */
+
+  static costMoves(currentNode: Node, nextPosition: Coordinate) {
+
+    //const nextPositionOBJ = this.buildNodeCost(nextPosition);
+    //const currentNodeOBJ = this.buildNodeCost(currentNode);
+    
+  
+    const coordinatePrincess : Coordinate = Matrix.findPrincess();
+
+    let stackNode = [];
+    stackNode.push(currentNode); 
+
+  while(stackNode.length != 0){
+
+    stackNode.sort(); // sort nodes 
+
+    if ( nextPosition != coordinatePrincess) {
+
+         stackNode.push(nextPosition); //Add next position
+         stackNode.sort(); // sort nodes 
+         const currentNodeStack = stackNode.pop(); // remove the last element
+         return currentNodeStack;
+
+    
+      } else {
+
+        stackNode=[] // clean 
+        stackNode.push(currentNode) // currentNode as father
+        return currentNode.cost;
+      }
+    }
+    
   }
 
 }

@@ -3,6 +3,7 @@ import OBJECTS from "../constants/objects";
 import Coordinate from "./Coordinate";
 import Matrix from "./Matrix";
 class Node {
+  [x: string]: any;
   father: Node | null = null;
   path: Node[] = [];
   position: Coordinate;
