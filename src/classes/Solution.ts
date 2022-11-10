@@ -149,10 +149,6 @@ class Solution {
 
   static costMoves(currentNode: Node, nextPosition: Coordinate) {
 
-    //const nextPositionOBJ = this.buildNodeCost(nextPosition);
-    //const currentNodeOBJ = this.buildNodeCost(currentNode);
-    
-  
     const coordinatePrincess : Coordinate = Matrix.findPrincess();
 
     let stackNode = [];
@@ -160,24 +156,31 @@ class Solution {
 
   while(stackNode.length != 0){
 
-    stackNode.sort(); // sort nodes 
-
     if ( nextPosition != coordinatePrincess) {
 
          stackNode.push(nextPosition); //Add next position
          stackNode.sort(); // sort nodes 
          const currentNodeStack = stackNode.pop(); // remove the last element
-         return currentNodeStack;
 
+         const newPosition = new Coordinate(currentNodeStack?.x, currentNodeStack?.y);
+
+         const newNodeChild = new Node(currentNode, newPosition, Matrix.matrix);
+
+         const addNewNodeChild = this.addChild(currentNode,newNodeChild);
+
+         const newNode = addNewNodeChild
+         let costs = newNode.cost;
+         return costs;
     
       } else {
 
         stackNode=[] // clean 
         stackNode.push(currentNode) // currentNode as father
-        return currentNode.cost;
+        let costs = currentNode.cost;
+        return costs;
       }
     }
-    
+    return Solution.costMoves;
   }
 
 }
