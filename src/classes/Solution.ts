@@ -179,42 +179,6 @@ class Solution {
     }
     
   }
-      
-
-  static costNode(node: Node) {
-
-   let stack = []
-     stack.push(node.father); 
-
-     while (stack.length !== 0) {
-
-      stack.sort();
-
-      let currentNode = stack.pop();
-
-      const coordinatePrincess : Coordinate = Matrix.findPrincess();
-
-      if(currentNode?.position == coordinatePrincess) {
-              stack=[] // clean 
-              stack.push(currentNode) // currentNode as father
-              return currentNode;
-
-      }else if(currentNode?.position != coordinatePrincess) {
-
-        /*const child = Solution.getChild(currentNode?.cost);
-
-        if(child) {
-          stack.push(child);
-        return ; }
-        
-        */
-          
-      }
-    
-
-     }
-
-  }
 
 }
 
