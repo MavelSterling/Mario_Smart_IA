@@ -228,8 +228,8 @@ class SearchAlgorithms {
 
       methodCalculateValue = Solution.costMoves;
 
-    }else if ( value === "heuristic"){
-      methodCalculateValue = Matrix.heuristicValue;
+     }else if ( value === "heuristic"){
+       methodCalculateValue = Matrix.heuristicValue;
     }else {
       throw "Error in parameter value";
     }
