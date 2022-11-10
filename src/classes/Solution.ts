@@ -165,6 +165,7 @@ class Solution {
     if ( nextPosition != coordinatePrincess) {
 
          stackNode.push(nextPosition); //Add next position
+         stackNode.sort(); // sort nodes 
          const currentNodeStack = stackNode.pop(); // remove the last element
          return currentNodeStack;
 
