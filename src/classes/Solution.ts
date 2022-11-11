@@ -167,15 +167,17 @@ class Solution {
          const currentNodeStack = stackNode[0]; // first node
 
          Solution.expandedNodes.push(currentNodeStack);
-
-         let cost = currentNodeStack.cost;
+        
+         if (currentNodeStack.cost < currentNode.cost){
+          return currentNode = currentNodeStack
+         }
 
          //const newPosition = new Coordinate(currentNodeStack?.x, currentNodeStack?.y);
          //let newNodeChild = new Node(currentNode, newPosition, Matrix.matrix);
          //let addNewNodeChild = Solution.addChild(currentNode,newNodeChild);
          //Solution.expandedNodes.push(addNewNodeChild);
 
-         return cost;
+         return currentNode.cost;
     
       } else {
 
