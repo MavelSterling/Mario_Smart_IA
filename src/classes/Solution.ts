@@ -148,18 +148,22 @@ class Solution {
 
     const coordinatePrincess : Coordinate = Matrix.findPrincess();
 
-    let cost = null;
-
     let stackNode = [];
+
     stackNode.push(currentNode); 
 
+    const newPosition = new Coordinate(nextPosition?.x, nextPosition?.y);
+    let newNodeChild = new Node(currentNode, newPosition, Matrix.matrix);
+    let addNewNodeChild = Solution.addChild(currentNode,newNodeChild);
+
+    
   while(stackNode.length !== 0){
 
     if ( nextPosition.x !== coordinatePrincess.x && nextPosition.y !== coordinatePrincess.y) {
 
-         stackNode.push(nextPosition); //Add next position
-         stackNode.sort(); // sort nodes 
-         const currentNodeStack = stackNode.pop(); // remove the last element
+         stackNode.push(addNewNodeChild); //Add next node
+         stackNode.sort((a: Node,b:Node) => a.cost - b.cost); // order upgrade by cost 
+         const currentNodeStack = stackNode[0]; // first node
 
          //const newPosition = new Coordinate(currentNodeStack?.x, currentNodeStack?.y);
 
@@ -169,7 +173,7 @@ class Solution {
 
          //Solution.expandedNodes.push(addNewNodeChild);
 
-         return currentNodeStack;
+         return currentNodeStack?.position;
     
       } else {
 
