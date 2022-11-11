@@ -183,8 +183,7 @@ class Solution {
 
         stackNode=[] // clean 
         stackNode.push(currentNode) // currentNode as father
-        let cost = currentNode.cost;
-        return cost;
+        return currentNode.cost;
       }
     }
   
