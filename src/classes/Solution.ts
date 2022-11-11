@@ -148,7 +148,7 @@ class Solution {
 
     const coordinatePrincess : Coordinate = Matrix.findPrincess();
 
-    let cost: number = 0;
+   // let cost: number = 0;
     let stackNode = [];
 
     stackNode.push(currentNode); 
@@ -177,18 +177,21 @@ class Solution {
          //let addNewNodeChild = Solution.addChild(currentNode,newNodeChild);
          //Solution.expandedNodes.push(addNewNodeChild);
 
-         return currentNode.cost;
+         return currentNode;
     
       } else {
 
         stackNode=[] // clean 
         stackNode.push(currentNode) // currentNode as father
-        return currentNode.cost;
+        return currentNode;
       }
+
     }
   
-    return cost ;
+  
+    return Solution.costMoves;
   }
+
 
 }
 
