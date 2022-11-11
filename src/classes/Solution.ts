@@ -148,6 +148,7 @@ class Solution {
 
     const coordinatePrincess : Coordinate = Matrix.findPrincess();
 
+    let cost: number = 0;
     let stackNode = [];
 
     stackNode.push(currentNode); 
@@ -166,22 +167,24 @@ class Solution {
          const currentNodeStack = stackNode[0]; // first node
          Solution.expandedNodes.push(currentNodeStack);
 
+         let cost = currentNodeStack.cost;
+
          //const newPosition = new Coordinate(currentNodeStack?.x, currentNodeStack?.y);
          //let newNodeChild = new Node(currentNode, newPosition, Matrix.matrix);
          //let addNewNodeChild = Solution.addChild(currentNode,newNodeChild);
          //Solution.expandedNodes.push(addNewNodeChild);
 
-         return Solution.costMoves(currentNode,currentNodeStack.position);
+         return cost;
     
       } else {
 
         stackNode=[] // clean 
         stackNode.push(currentNode) // currentNode as father
-        return Solution.costMoves(currentNode,currentNode.position);
+        return currentNode.cost;
       }
     }
   
-    //return Solution.costMoves;
+    return ;
   }
 
 }
