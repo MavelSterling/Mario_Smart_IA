@@ -60,13 +60,11 @@ class Solution {
   }
 
   static buildTreeDepth() {
-    let node: Node = Solution._expandedNodes[Solution._expandedNodes.length - 1];
-    let depth: number = 0;
-    while (node.father) {
-      depth++;
-      node = node.father;
-    }
-    Solution.treeDepth = depth;
+    Solution.expandedNodes.forEach(node => {
+      if (node.depth > Solution.treeDepth) {
+        Solution.treeDepth = node.depth;
+      }
+    });
   }
 
   static buildNodeCost(node: Node): void {
