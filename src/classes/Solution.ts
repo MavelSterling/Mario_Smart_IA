@@ -165,6 +165,7 @@ class Solution {
          stackNode.push(addNewNodeChild); //Add next node
          stackNode.sort((a: Node,b:Node) => a.cost - b.cost); // order upgrade by cost 
          const currentNodeStack = stackNode[0]; // first node
+
          Solution.expandedNodes.push(currentNodeStack);
 
          let cost = currentNodeStack.cost;
@@ -180,11 +181,12 @@ class Solution {
 
         stackNode=[] // clean 
         stackNode.push(currentNode) // currentNode as father
-        return currentNode.cost;
+        let cost = currentNode.cost;
+        return cost;
       }
     }
   
-    return ;
+    return cost ;
   }
 
 }
