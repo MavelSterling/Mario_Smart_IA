@@ -119,19 +119,17 @@ class Solution {
     
     let newchild: Node = new Node(node, child.position, child.gameState);
     Solution.expandedNodes.push(newchild);
-    child.parent = node;
-
     return newchild;
   }
 
 
-  static get_first(node: Node) {
+ /* static get_first(node: Node) {
     return  node.get_first;
   }
   static get_next(node: Node) {
     return  node.get_next;
   }
-
+*/
   /*
   static analyzeFirst(node: Node) {
     if (node.get_first == node.position){
@@ -150,12 +148,14 @@ class Solution {
 
     const coordinatePrincess : Coordinate = Matrix.findPrincess();
 
+    let cost = null;
+
     let stackNode = [];
     stackNode.push(currentNode); 
 
-  while(stackNode.length != 0){
+  while(stackNode.length !== 0){
 
-    if ( nextPosition != coordinatePrincess) {
+    if ( nextPosition.x !== coordinatePrincess.x && nextPosition.y !== coordinatePrincess.y) {
 
          stackNode.push(nextPosition); //Add next position
          stackNode.sort(); // sort nodes 
