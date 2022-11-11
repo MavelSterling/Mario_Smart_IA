@@ -156,7 +156,7 @@ class Solution {
     let newNodeChild = new Node(currentNode, newPosition, Matrix.matrix);
     let addNewNodeChild = Solution.addChild(currentNode,newNodeChild);
 
-    
+
   while(stackNode.length !== 0){
 
     if ( nextPosition.x !== coordinatePrincess.x && nextPosition.y !== coordinatePrincess.y) {
@@ -164,25 +164,24 @@ class Solution {
          stackNode.push(addNewNodeChild); //Add next node
          stackNode.sort((a: Node,b:Node) => a.cost - b.cost); // order upgrade by cost 
          const currentNodeStack = stackNode[0]; // first node
+         Solution.expandedNodes.push(currentNodeStack);
+
 
          //const newPosition = new Coordinate(currentNodeStack?.x, currentNodeStack?.y);
-
          //let newNodeChild = new Node(currentNode, newPosition, Matrix.matrix);
-        
          //let addNewNodeChild = Solution.addChild(currentNode,newNodeChild);
-
          //Solution.expandedNodes.push(addNewNodeChild);
 
-         return currentNodeStack?.position;
+         return currentNodeStack.cost;
     
       } else {
 
         stackNode=[] // clean 
         stackNode.push(currentNode) // currentNode as father
-        return currentNode.position;
+        return currentNode.cost;
       }
     }
-    return Solution.buildNodeCost;
+    //return Solution.costMoves;
   }
 
 }
