@@ -245,6 +245,16 @@ class SearchAlgorithms {
     array.splice(index_i, 0, node);
   }
 
+
+  static printNodes ( queue: Array<Node>) : void{
+    let arrayx : string = "[";
+    for( let i =0; i<queue.length; i++){
+      arrayx +=`<${queue[i].position.x},${queue[i].position.y}> # `
+    }
+    arrayx += "]";
+    console.log(arrayx);
+  }
+
 }
 
 export default SearchAlgorithms;
