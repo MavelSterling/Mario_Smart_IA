@@ -166,21 +166,21 @@ class Solution {
          const currentNodeStack = stackNode[0]; // first node
          Solution.expandedNodes.push(currentNodeStack);
 
-
          //const newPosition = new Coordinate(currentNodeStack?.x, currentNodeStack?.y);
          //let newNodeChild = new Node(currentNode, newPosition, Matrix.matrix);
          //let addNewNodeChild = Solution.addChild(currentNode,newNodeChild);
          //Solution.expandedNodes.push(addNewNodeChild);
 
-         return currentNodeStack.cost;
+         return Solution.costMoves(currentNode,currentNodeStack.position);
     
       } else {
 
         stackNode=[] // clean 
         stackNode.push(currentNode) // currentNode as father
-        return currentNode.cost;
+        return Solution.costMoves(currentNode,currentNode.position);
       }
     }
+  
     //return Solution.costMoves;
   }
 
