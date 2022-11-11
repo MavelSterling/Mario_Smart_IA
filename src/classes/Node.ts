@@ -16,7 +16,10 @@ class Node {
     this.gameState = gameState;
     this.object = Matrix.matrix[position.x][position.y] as Object;
     this.father = father;
-    if (father) this.path = [...father.path];
+    if (father) {
+      this.path = [...father.path];
+      this.depth = father.depth + 1;
+    }
     this.path.push(this);
   }
 
