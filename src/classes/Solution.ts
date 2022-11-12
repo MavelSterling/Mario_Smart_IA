@@ -167,7 +167,7 @@ class Solution {
          Solution.expandedNodes.push(currentNodeStack);
         
          if (currentNodeStack.cost < currentNode.cost){
-          return currentNode = currentNodeStack
+          return currentNode === currentNodeStack
          }
 
          //const newPosition = new Coordinate(currentNodeStack?.x, currentNodeStack?.y);
