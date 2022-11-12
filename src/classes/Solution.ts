@@ -60,11 +60,13 @@ class Solution {
   }
 
   static buildTreeDepth() {
-    Solution.expandedNodes.forEach(node => {
-      if (node.depth > Solution.treeDepth) {
-        Solution.treeDepth = node.depth;
-      }
-    });
+    let node: Node = Solution._expandedNodes[Solution._expandedNodes.length - 1];
+    let depth: number = 0;
+    while (node.father) {
+      depth++;
+      node = node.father;
+    }
+    Solution.treeDepth = depth;
   }
 
   static buildNodeCost(node: Node): void {
@@ -117,17 +119,19 @@ class Solution {
     
     let newchild: Node = new Node(node, child.position, child.gameState);
     Solution.expandedNodes.push(newchild);
+    child.parent = node;
+
     return newchild;
   }
 
 
- /* static get_first(node: Node) {
+  static get_first(node: Node) {
     return  node.get_first;
   }
   static get_next(node: Node) {
     return  node.get_next;
   }
-*/
+
   /*
   static analyzeFirst(node: Node) {
     if (node.get_first == node.position){
@@ -144,47 +148,38 @@ class Solution {
 
   static costMoves(currentNode: Node, nextPosition: Coordinate) {
 
-    const coordinatePrincess : Coordinate = Matrix.findPrincess(); // goal 
+    const coordinatePrincess : Coordinate = Matrix.findPrincess();
 
-   // let cost: number = 0;
     let stackNode = [];
-
     stackNode.push(currentNode); 
 
-    const newPosition: Coordinate = new Coordinate(nextPosition?.x, nextPosition?.y);
-    let newNodeChild: Node = new Node(currentNode, newPosition, Matrix.matrix);
-    let addNewNodeChild: Node = Solution.addChild(currentNode,newNodeChild);
+  while(stackNode.length != 0){
 
+    if ( nextPosition != coordinatePrincess) {
 
-  while(stackNode.length !== 0){
+         stackNode.push(nextPosition); //Add next position
+         stackNode.sort(); // sort nodes 
+         const currentNodeStack = stackNode.pop(); // remove the last element
 
-    if ( nextPosition.x !== coordinatePrincess.x && nextPosition.y !== coordinatePrincess.y) {
+         //const newPosition = new Coordinate(currentNodeStack?.x, currentNodeStack?.y);
 
-         stackNode.push(addNewNodeChild); //Add next node
-         stackNode.sort((a: Node,b:Node) => a.cost - b.cost); // order upgrade by cost 
-         const currentNodeStack = stackNode[0]; // first node
-
-        // Solution.expandedNodes.push(currentNodeStack);
+         //let newNodeChild = new Node(currentNode, newPosition, Matrix.matrix);
         
-         if (currentNodeStack.cost < currentNode.cost){
-             currentNode = currentNodeStack
-             stackNode.push(currentNode); //Add next node
-             stackNode.sort((a: Node,b:Node) => a.cost - b.cost); // order upgrade by cost 
+         //let addNewNodeChild = Solution.addChild(currentNode,newNodeChild);
 
-         } 
-             
+         //Solution.expandedNodes.push(addNewNodeChild);
+
+         return currentNodeStack;
+    
       } else {
 
         stackNode=[] // clean 
         stackNode.push(currentNode) // currentNode as father
+        return currentNode.position;
       }
-
     }
-
-    return currentNode;
-    
+    return Solution.buildNodeCost;
   }
-
 
 }
 
