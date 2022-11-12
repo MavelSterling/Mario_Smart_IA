@@ -170,11 +170,6 @@ class Solution {
           return currentNode === currentNodeStack
          }
 
-         //const newPosition = new Coordinate(currentNodeStack?.x, currentNodeStack?.y);
-         //let newNodeChild = new Node(currentNode, newPosition, Matrix.matrix);
-         //let addNewNodeChild = Solution.addChild(currentNode,newNodeChild);
-         //Solution.expandedNodes.push(addNewNodeChild);
-
          return currentNode;
     
       } else {
