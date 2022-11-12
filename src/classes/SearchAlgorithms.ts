@@ -49,7 +49,6 @@ class SearchAlgorithms {
       }
       currentNode = queue[0];
     }
-    Solution.expandedNodes.push(queue[0]);
 
     try {
       Solution.solution = [...queue[0].path];
@@ -102,7 +101,6 @@ class SearchAlgorithms {
       }
       currentNode = queue[0];
     }
-    Solution.expandedNodes.push(queue[0]);
 
     try {
       Solution.solution = [...queue[0].path];
@@ -116,8 +114,20 @@ class SearchAlgorithms {
     new Mario(Matrix.findPlayer()); 
     let currentNode: Node = new Node(null, Mario.position, Matrix.matrix);
     queue.push(currentNode);
+    let nodeAnswer : Node | null = null;
+    let nodePossibleAnswer : Node | null = null;
+    while (queue.length && ((nodeAnswer == null)? true : !nodeAnswer.isPrincess())) {
 
-    while (queue.length && !currentNode.isPrincess()) {
+      if (currentNode.isPrincess() && (nodePossibleAnswer === null || 
+        currentNode.calculateAccumulatedCost() < nodePossibleAnswer.calculateAccumulatedCost())){
+        nodePossibleAnswer = currentNode;
+        continue;
+      } 
+      if ( nodePossibleAnswer != null && (nodePossibleAnswer === null || 
+        currentNode.calculateAccumulatedCost() < nodePossibleAnswer.calculateAccumulatedCost())) {
+        nodeAnswer = nodePossibleAnswer;
+      }
+
       Solution.expandedNodes.push(queue.shift()!);
       if (!currentNode.isWall()) {
         //GO LEFT
@@ -155,6 +165,9 @@ class SearchAlgorithms {
       }
       currentNode = queue[0];
     }
+    for (let i=0; i< currentNode.path.length; i++){
+      currentNode.path[i].printAccumulatedCost();
+    }
     try {
       Solution.solution = [...queue[0].path];
     } catch (error: any) {
@@ -166,12 +179,10 @@ class SearchAlgorithms {
   }
 
   static greedySearch(queue: Node[]) {
-    new Mario(Matrix.findPlayer());
+    new Mario(Matrix.findPlayer()); 
     let currentNode: Node = new Node(null, Mario.position, Matrix.matrix);
-
+    
     queue.push(currentNode);
-    console.log("comienzo");
-    this.printNodes(queue);
 
     // ############################################
 
@@ -183,9 +194,7 @@ class SearchAlgorithms {
           const newPosition = new Coordinate(currentNode.position.x, currentNode.position.y - 1);
           if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
-            //!newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
-            !newNode.isWall() &&
-              SearchAlgorithms.insertNodeByValue(queue, new Node(currentNode, newPosition, Matrix.matrix), "heuristic");
+            !newNode.isWall() && SearchAlgorithms.insertNodeByValue( queue, new Node(currentNode, newPosition, Matrix.matrix), "heuristic" );
           }
         }
         //GO UP
@@ -193,9 +202,7 @@ class SearchAlgorithms {
           const newPosition = new Coordinate(currentNode.position.x - 1, currentNode.position.y);
           if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
-            //!newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
-            !newNode.isWall() &&
-              SearchAlgorithms.insertNodeByValue(queue, new Node(currentNode, newPosition, Matrix.matrix), "heuristic");
+            !newNode.isWall() && SearchAlgorithms.insertNodeByValue( queue, new Node(currentNode, newPosition, Matrix.matrix), "heuristic" );
           }
         }
         //GO RIGHT
@@ -203,9 +210,7 @@ class SearchAlgorithms {
           const newPosition = new Coordinate(currentNode.position.x, currentNode.position.y + 1);
           if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
-            //!newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
-            !newNode.isWall() &&
-              SearchAlgorithms.insertNodeByValue(queue, new Node(currentNode, newPosition, Matrix.matrix), "heuristic");
+            !newNode.isWall() && SearchAlgorithms.insertNodeByValue( queue, new Node(currentNode, newPosition, Matrix.matrix), "heuristic" );
           }
         }
         //GO DOWN
@@ -213,17 +218,16 @@ class SearchAlgorithms {
           const newPosition = new Coordinate(currentNode.position.x + 1, currentNode.position.y);
           if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
-            //!newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
-            !newNode.isWall() &&
-              SearchAlgorithms.insertNodeByValue(queue, new Node(currentNode, newPosition, Matrix.matrix), "heuristic");
+            !newNode.isWall() && SearchAlgorithms.insertNodeByValue( queue, new Node(currentNode, newPosition, Matrix.matrix), "heuristic" );
           }
         }
       }
       currentNode = queue[0];
-      console.log("######## Corte ciclo ######################");
     }
-    Solution.expandedNodes.push(queue[0]);
-
+    //currentNode.printAccumulatedCost();
+    for (let i=0; i< currentNode.path.length; i++){
+      currentNode.path[i].printAccumulatedCost();
+    }
     try {
       Solution.solution = [...queue[0].path];
     } catch (error: any) {
@@ -232,6 +236,7 @@ class SearchAlgorithms {
     Solution.staticPath = [...queue[0].path];
 
     // ############################################
+    
   }
 
 
@@ -249,23 +254,25 @@ class SearchAlgorithms {
     let index_i = 0;
     let high = array.length;
 
-    while (index_i < high) {
-      if (methodCalculateValue(array[index_i].position) <= methodCalculateValue(node.position)) {
-        index_i += 1;
-      } else high = index_i;
-    }
+    while (index_i < high) { 
+        if (methodCalculateValue(array[index_i].position) <= methodCalculateValue(node.position)){
+          index_i+= 1;
+        } 
+        else high = index_i;
+    } 
     array.splice(index_i, 0, node);
-    this.printNodes(array);
   }
 
-  static printNodes(queue: Array<Node>): void {
-    let arrayx: string = "[";
-    for (let i = 0; i < queue.length; i++) {
-      arrayx += `<${queue[i].position.x},${queue[i].position.y}> # `;
+
+  static printNodes ( queue: Array<Node>) : void{
+    let arrayx : string = "[";
+    for( let i =0; i<queue.length; i++){
+      arrayx +=`<${queue[i].position.x},${queue[i].position.y}> # `
     }
     arrayx += "]";
     console.log(arrayx);
   }
+
 }
 
 export default SearchAlgorithms;
