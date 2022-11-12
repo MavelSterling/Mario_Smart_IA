@@ -111,6 +111,7 @@ class SearchAlgorithms {
   }
 
   static uniformCostSearch(queue: Node[]){
+    
     new Mario(Matrix.findPlayer()); 
     let currentNode: Node = new Node(null, Mario.position, Matrix.matrix);
     queue.push(currentNode);
@@ -121,10 +122,9 @@ class SearchAlgorithms {
       if (currentNode.isPrincess() && (nodePossibleAnswer === null || 
         currentNode.calculateAccumulatedCost() < nodePossibleAnswer.calculateAccumulatedCost())){
         nodePossibleAnswer = currentNode;
-        continue;
       } 
       if ( nodePossibleAnswer != null && (nodePossibleAnswer === null || 
-        currentNode.calculateAccumulatedCost() < nodePossibleAnswer.calculateAccumulatedCost())) {
+        currentNode.calculateAccumulatedCost() > nodePossibleAnswer.calculateAccumulatedCost())) {
         nodeAnswer = nodePossibleAnswer;
       }
 
