@@ -144,16 +144,16 @@ class Solution {
 
   static costMoves(currentNode: Node, nextPosition: Coordinate) {
 
-    const coordinatePrincess : Coordinate = Matrix.findPrincess();
+    const coordinatePrincess : Coordinate = Matrix.findPrincess(); // goal 
 
    // let cost: number = 0;
     let stackNode = [];
 
     stackNode.push(currentNode); 
 
-    const newPosition = new Coordinate(nextPosition?.x, nextPosition?.y);
-    let newNodeChild = new Node(currentNode, newPosition, Matrix.matrix);
-    let addNewNodeChild = Solution.addChild(currentNode,newNodeChild);
+    const newPosition: Coordinate = new Coordinate(nextPosition?.x, nextPosition?.y);
+    let newNodeChild: Node = new Node(currentNode, newPosition, Matrix.matrix);
+    let addNewNodeChild: Node = Solution.addChild(currentNode,newNodeChild);
 
 
   while(stackNode.length !== 0){
@@ -164,25 +164,25 @@ class Solution {
          stackNode.sort((a: Node,b:Node) => a.cost - b.cost); // order upgrade by cost 
          const currentNodeStack = stackNode[0]; // first node
 
-         Solution.expandedNodes.push(currentNodeStack);
+        // Solution.expandedNodes.push(currentNodeStack);
         
          if (currentNodeStack.cost < currentNode.cost){
-          return currentNode = currentNodeStack
-         }
+             currentNode = currentNodeStack
+             stackNode.push(currentNode); //Add next node
+             stackNode.sort((a: Node,b:Node) => a.cost - b.cost); // order upgrade by cost 
 
-         //return currentNode;
-    
+         } 
+             
       } else {
 
         stackNode=[] // clean 
         stackNode.push(currentNode) // currentNode as father
-        return currentNode;
       }
 
     }
-  
-  
-    return Solution.costMoves;
+
+    return currentNode;
+    
   }
 
 
