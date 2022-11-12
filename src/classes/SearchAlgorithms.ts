@@ -111,22 +111,22 @@ class SearchAlgorithms {
   }
 
   static uniformCostSearch(queue: Node[]){
-    
+
     new Mario(Matrix.findPlayer()); 
     let currentNode: Node = new Node(null, Mario.position, Matrix.matrix);
     queue.push(currentNode);
     let nodeAnswer : Node | null = null;
     let nodePossibleAnswer : Node | null = null;
+    
     while (queue.length && ((nodeAnswer == null)? true : !nodeAnswer.isPrincess())) {
 
       if (currentNode.isPrincess() && (nodePossibleAnswer === null || 
         currentNode.calculateAccumulatedCost() < nodePossibleAnswer.calculateAccumulatedCost())){
         nodePossibleAnswer = currentNode;
       } 
-      if ( nodePossibleAnswer != null && (nodePossibleAnswer === null || 
-        currentNode.calculateAccumulatedCost() > nodePossibleAnswer.calculateAccumulatedCost())) {
+      if ( nodePossibleAnswer != null && (currentNode.calculateAccumulatedCost() > nodePossibleAnswer.calculateAccumulatedCost())) {
         nodeAnswer = nodePossibleAnswer;
-      }
+      } 
 
       Solution.expandedNodes.push(queue.shift()!);
       if (!currentNode.isWall()) {
