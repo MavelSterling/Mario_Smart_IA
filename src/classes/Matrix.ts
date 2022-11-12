@@ -22,7 +22,7 @@ class Matrix {
   static element: HTMLElement;
 
   constructor(matrix: string) {
-    const array: Object[] = matrix.split("\n") as Object[];
+    const array: Object[] = matrix.split("\r\n") as Object[];
     Matrix.matrix = array.map(a => a.split(" ")) as Object[][];
     Matrix.element = document.querySelector(".matrix")!;
     this.buildGame();

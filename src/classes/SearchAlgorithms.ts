@@ -114,8 +114,16 @@ class SearchAlgorithms {
     new Mario(Matrix.findPlayer()); 
     let currentNode: Node = new Node(null, Mario.position, Matrix.matrix);
     queue.push(currentNode);
+    let nodeAnswer : Node | null = null;
+    let nodePossibleAnswer : Node | null = null;
+    while (queue.length && ((nodeAnswer == null)? true : !nodeAnswer.isPrincess())) {
 
-    while (queue.length && !currentNode.isPrincess()) {
+      if (currentNode.isPrincess() && (nodePossibleAnswer === null || currentNode.calculateAccumulatedCost() < nodePossibleAnswer.calculateAccumulatedCost()  
+      )){
+        nodePossibleAnswer = currentNode;
+        continue;
+      }
+
       Solution.expandedNodes.push(queue.shift()!);
       if (!currentNode.isWall()) {
         //GO LEFT
@@ -152,6 +160,9 @@ class SearchAlgorithms {
         }
       }
       currentNode = queue[0];
+    }
+    for (let i=0; i< currentNode.path.length; i++){
+      currentNode.path[i].printAccumulatedCost();
     }
     try {
       Solution.solution = [...queue[0].path];
@@ -209,7 +220,10 @@ class SearchAlgorithms {
       }
       currentNode = queue[0];
     }
-
+    //currentNode.printAccumulatedCost();
+    for (let i=0; i< currentNode.path.length; i++){
+      currentNode.path[i].printAccumulatedCost();
+    }
     try {
       Solution.solution = [...queue[0].path];
     } catch (error: any) {
@@ -237,7 +251,7 @@ class SearchAlgorithms {
     let high = array.length;
 
     while (index_i < high) { 
-        if (methodCalculateValue(array[index_i].position) < methodCalculateValue(node).position){
+        if (methodCalculateValue(array[index_i].position) <= methodCalculateValue(node.position)){
           index_i+= 1;
         } 
         else high = index_i;
