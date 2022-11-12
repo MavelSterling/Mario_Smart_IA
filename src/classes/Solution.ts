@@ -3,7 +3,6 @@ import Mario from "./Mario";
 import Node from './Node';
 import Coordinate from './Coordinate';
 import Matrix from "./Matrix";
-import COSTS from '../constants/costs';
 class Solution {
   private static _cost: number = 0;
   private static _solution: Node[] = [];
@@ -61,13 +60,11 @@ class Solution {
   }
 
   static buildTreeDepth() {
-    let node: Node = Solution._expandedNodes[Solution._expandedNodes.length - 1];
-    let depth: number = 0;
-    while (node.father) {
-      depth++;
-      node = node.father;
-    }
-    Solution.treeDepth = depth;
+    Solution.expandedNodes.forEach(node => {
+      if (node.depth > Solution.treeDepth) {
+        Solution.treeDepth = node.depth;
+      }
+    });
   }
 
   static buildNodeCost(node: Node): void {
@@ -120,19 +117,17 @@ class Solution {
     
     let newchild: Node = new Node(node, child.position, child.gameState);
     Solution.expandedNodes.push(newchild);
-    child.parent = node;
-
     return newchild;
   }
 
 
-  static get_first(node: Node) {
+ /* static get_first(node: Node) {
     return  node.get_first;
   }
   static get_next(node: Node) {
     return  node.get_next;
   }
-
+*/
   /*
   static analyzeFirst(node: Node) {
     if (node.get_first == node.position){
@@ -149,39 +144,47 @@ class Solution {
 
   static costMoves(currentNode: Node, nextPosition: Coordinate) {
 
-    //const monster=node.object;
-    //const nextPositionOBJ = this.buildNodeCost(nextPosition);
-    //const currentNodeOBJ = this.buildNodeCost(currentNode);
-    
-  
     const coordinatePrincess : Coordinate = Matrix.findPrincess();
 
+   // let cost: number = 0;
     let stackNode = [];
+
     stackNode.push(currentNode); 
 
-  while(stackNode.length != 0){
+    const newPosition = new Coordinate(nextPosition?.x, nextPosition?.y);
+    let newNodeChild = new Node(currentNode, newPosition, Matrix.matrix);
+    let addNewNodeChild = Solution.addChild(currentNode,newNodeChild);
 
-    stackNode.sort(); // sort nodes 
 
-    if ( nextPosition != coordinatePrincess) {
+  while(stackNode.length !== 0){
 
-         stackNode.push(nextPosition); //Add next position
-         stackNode.sort(); // sort nodes 
-         const currentNodeStack = stackNode.pop(); 
-         
-         // remove the last element
-         return currentNodeStack;
+    if ( nextPosition.x !== coordinatePrincess.x && nextPosition.y !== coordinatePrincess.y) {
 
+         stackNode.push(addNewNodeChild); //Add next node
+         stackNode.sort((a: Node,b:Node) => a.cost - b.cost); // order upgrade by cost 
+         const currentNodeStack = stackNode[0]; // first node
+
+         Solution.expandedNodes.push(currentNodeStack);
+        
+         if (currentNodeStack.cost < currentNode.cost){
+          return currentNode === currentNodeStack
+         }
+
+         return currentNode;
     
       } else {
 
         stackNode=[] // clean 
         stackNode.push(currentNode) // currentNode as father
-        return currentNode.cost;
+        return currentNode;
       }
+
     }
-    
+  
+  
+    return Solution.costMoves;
   }
+
 
 }
 
