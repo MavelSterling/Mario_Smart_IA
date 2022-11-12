@@ -149,6 +149,7 @@ class Solution {
 
   static costMoves(currentNode: Node, nextPosition: Coordinate) {
 
+    //const monster=node.object;
     //const nextPositionOBJ = this.buildNodeCost(nextPosition);
     //const currentNodeOBJ = this.buildNodeCost(currentNode);
     
@@ -166,7 +167,9 @@ class Solution {
 
          stackNode.push(nextPosition); //Add next position
          stackNode.sort(); // sort nodes 
-         const currentNodeStack = stackNode.pop(); // remove the last element
+         const currentNodeStack = stackNode.pop(); 
+         
+         // remove the last element
          return currentNodeStack;
 
     
