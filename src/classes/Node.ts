@@ -3,6 +3,7 @@ import type { Object } from "../constants/objects";
 import OBJECTS from "../constants/objects";
 import Coordinate from "./Coordinate";
 import Matrix from "./Matrix";
+import { FLOWER_DEFAULT_SHOTS, STAR_DEFAULT_DURATION } from "./Mario";
 class Node {
   father: Node | null = null;
   path: Node[] = [];
@@ -37,11 +38,11 @@ class Node {
     }
     if (this.isStar() && !this.hasFlower()) {
       this.star.isPowered = true;
-      this.star.durationLeft += 6;
+      this.star.durationLeft += STAR_DEFAULT_DURATION;
     }
     if (this.isFlower() && !this.hasStar()) {
       this.flower.isPowered = true;
-      this.flower.shotsLeft += 2;
+      this.flower.shotsLeft += FLOWER_DEFAULT_SHOTS;
     }
     if (this.star.durationLeft === 0) this.star.isPowered = false;
     if (this.flower.shotsLeft === 0) this.flower.isPowered = false;
