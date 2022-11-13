@@ -99,11 +99,11 @@ function main(algorithm: Algorithm) {
         SearchAlgorithms.depthFirstSearch(nodeList);
         break;
       case UninformedAlgorithm.COST:
-        alert("Cost NOT IMPLEMENTED YET");
-        return;
+        SearchAlgorithms.uniformCostSearch(nodeList);
+        break;
       case InformedAlgorithm.GREEDY:
-        alert("Greedy NOT IMPLEMENTED YET");
-        return;
+        SearchAlgorithms.greedySearch(nodeList);
+        break;
       case InformedAlgorithm.ASTAR:
         alert("A* NOT IMPLEMENTED YET");
         return;
@@ -112,6 +112,7 @@ function main(algorithm: Algorithm) {
         resetGame();
         return;
     }
+    console.log(Solution.staticPath.map(({ accumulatedCost, star }) => ({ accumulatedCost, star })));
   } catch (error) {
     alert(error);
     return;
