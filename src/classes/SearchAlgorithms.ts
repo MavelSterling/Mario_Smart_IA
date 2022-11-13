@@ -115,9 +115,36 @@ class SearchAlgorithms {
     let currentNode: Node = new Node(null, Mario.position, Matrix.matrix);
     
     queue.push(currentNode);
+    let nodeAnswer : Node = new Node(null, Mario.position, Matrix.matrix);
+    let nodePossibleAnswer : Node = new Node(null, Mario.position, Matrix.matrix); 
 
-    while (queue.length && !currentNode.isPrincess()) {
+    while (queue.length) {
+      this.printNodes(queue);
       Solution.expandedNodes.push(queue.shift()!);
+      if( nodePossibleAnswer.calculateAccumulatedCost() < nodeAnswer.calculateAccumulatedCost() && nodePossibleAnswer.isPrincess() && nodeAnswer.isPrincess()){
+        console.log("opc1");
+        nodeAnswer = nodePossibleAnswer;
+      }
+      if( currentNode.calculateAccumulatedCost() > nodeAnswer.calculateAccumulatedCost() && nodeAnswer.isPrincess()){
+        console.log("opc2");
+        queue[0] = nodeAnswer;
+        break;
+      }
+      else if ( currentNode.isPrincess() ){  
+        if( !nodePossibleAnswer.isPrincess()){
+          console.log("opc666");
+          nodePossibleAnswer = currentNode;
+          nodeAnswer = currentNode;
+        }else if( currentNode.calculateAccumulatedCost() < nodePossibleAnswer.calculateAccumulatedCost() ){
+
+          console.log("opc555");
+          nodePossibleAnswer = currentNode;
+          continue;
+        } else{ 
+          console.log("opc3");
+        } 
+      }
+      console.log("opc4");
       if (!currentNode.isWall()) {
         //GO LEFT
         if (currentNode.position.y > 0) {
@@ -154,7 +181,7 @@ class SearchAlgorithms {
       }
       currentNode = queue[0];
     }
-    //currentNode.printAccumulatedCost();
+    
     for (let i=0; i< currentNode.path.length; i++){
       currentNode.path[i].printAccumulatedCost();
     }
@@ -215,7 +242,7 @@ class SearchAlgorithms {
       }
       currentNode = queue[0];
     }
-    //currentNode.printAccumulatedCost();
+    
     for (let i=0; i< currentNode.path.length; i++){
       currentNode.path[i].printAccumulatedCost();
     }
