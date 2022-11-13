@@ -125,7 +125,8 @@ class SearchAlgorithms {
         nodePossibleAnswer = currentNode;
       } 
       if ( nodePossibleAnswer != null && (currentNode.calculateAccumulatedCost() > nodePossibleAnswer.calculateAccumulatedCost())) {
-        nodeAnswer = nodePossibleAnswer;
+          nodeAnswer = nodePossibleAnswer;
+        
       } 
 
       Solution.expandedNodes.push(queue.shift()!);
