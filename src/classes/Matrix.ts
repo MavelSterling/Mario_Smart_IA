@@ -4,6 +4,7 @@ import Coordinate from "./Coordinate";
 import Mario from "./Mario";
 import { STAR_DEFAULT_DURATION, FLOWER_DEFAULT_SHOTS } from "./Mario";
 import Solution from "./Solution";
+import Node from "./Node";
 
 const INITIAL_STAR_POWERUP = {
   isPowered: false,
@@ -191,12 +192,18 @@ class Matrix {
     return playerPosition!;
   }
 
-  static heuristicValue( coordinates : Coordinate ) : number {
+  static heuristicValue( node : Node ) : number {
     const coordinatePrincess : Coordinate = Matrix.findPrincess();
-    let manhattanDistance : number = Math.abs(coordinatePrincess.y - coordinates.y) + Math.abs(coordinatePrincess.x - coordinates.x); 
-    console.log(`Coordenadas: ${coordinates.x},${coordinates.y} - Heuristica :${manhattanDistance}`); // Si se desea ver los valores de la heurística según la posición de la coordenada
+    let manhattanDistance : number = Math.abs(coordinatePrincess.y - node.position.y ) + Math.abs(coordinatePrincess.x - node.position.x); 
+    console.log(`Coordenadas: ${node.position.x},${node.position.y} - Heuristica :${manhattanDistance}`); // Si se desea ver los valores de la heurística según la posición de la coordenada
     
     return manhattanDistance / 2;
+  }
+
+
+  static costValue( node : Node ): number {
+    console.log(`Coordenadas: ${node.position.x},${node.position.y} - Costo total :${node.calculateAccumulatedCost()}`); // Si se desea ver los valores del valor acumulado
+    return node.calculateAccumulatedCost() ;
   }
 
 }
