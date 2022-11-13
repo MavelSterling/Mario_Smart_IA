@@ -120,13 +120,11 @@ class SearchAlgorithms {
     
     while (queue.length && ((nodeAnswer == null)? true : !nodeAnswer.isPrincess())) {
 
-      if (currentNode.isPrincess() && (nodePossibleAnswer === null || 
-        currentNode.calculateAccumulatedCost() < nodePossibleAnswer.calculateAccumulatedCost())){
+      if (currentNode.isPrincess() && (nodePossibleAnswer === null || currentNode.calculateAccumulatedCost() < nodePossibleAnswer.calculateAccumulatedCost())){
         nodePossibleAnswer = currentNode;
       } 
       if ( nodePossibleAnswer != null && (currentNode.calculateAccumulatedCost() > nodePossibleAnswer.calculateAccumulatedCost())) {
           nodeAnswer = nodePossibleAnswer;
-        
       } 
 
       Solution.expandedNodes.push(queue.shift()!);
