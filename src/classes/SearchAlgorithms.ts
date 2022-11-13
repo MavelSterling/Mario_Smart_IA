@@ -126,8 +126,8 @@ class SearchAlgorithms {
         if (currentNode.position.x < Matrix.matrix.length - 1) {
           const newPosition = new Coordinate(currentNode.position.x + 1, currentNode.position.y);
           if (
-            currentNode.hasStar() ||
-            currentNode.hasFlower() ||
+            currentNode.isStar() ||
+            currentNode.isFlower() ||
             !currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)
           ) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
@@ -138,8 +138,8 @@ class SearchAlgorithms {
         if (currentNode.position.y < Matrix.matrix[0].length - 1) {
           const newPosition = new Coordinate(currentNode.position.x, currentNode.position.y + 1);
           if (
-            currentNode.hasStar() ||
-            currentNode.hasFlower() ||
+            currentNode.isStar() ||
+            currentNode.isFlower() ||
             !currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)
           ) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
@@ -150,8 +150,8 @@ class SearchAlgorithms {
         if (currentNode.position.x > 0) {
           const newPosition = new Coordinate(currentNode.position.x - 1, currentNode.position.y);
           if (
-            currentNode.hasStar() ||
-            currentNode.hasFlower() ||
+            currentNode.isStar() ||
+            currentNode.isFlower() ||
             !currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)
           ) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
@@ -162,8 +162,8 @@ class SearchAlgorithms {
         if (currentNode.position.y > 0) {
           const newPosition = new Coordinate(currentNode.position.x, currentNode.position.y - 1);
           if (
-            currentNode.hasStar() ||
-            currentNode.hasFlower() ||
+            currentNode.isStar() ||
+            currentNode.isFlower() ||
             !currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)
           ) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
