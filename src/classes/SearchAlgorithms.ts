@@ -116,7 +116,6 @@ class SearchAlgorithms {
     new Mario(Matrix.findPlayer());
 
     let currentNode: Node = new Node(null, Mario.position, Matrix.matrix);
-
     queue.push(currentNode);
 
     while (queue.length && !currentNode.isPrincess()) {
@@ -125,11 +124,10 @@ class SearchAlgorithms {
         //GO DOWN
         if (currentNode.position.x < Matrix.matrix.length - 1) {
           const newPosition = new Coordinate(currentNode.position.x + 1, currentNode.position.y);
-          if (
-            currentNode.isStar() ||
-            currentNode.isFlower() ||
-            !currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)
-          ) {
+          const alreadyVisited = currentNode.path.find(
+            node => node.position.x === newPosition.x && node.position.y === newPosition.y
+          );
+          if (currentNode.hasStar() || currentNode.hasFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
           }
@@ -137,11 +135,10 @@ class SearchAlgorithms {
         //GO RIGHT
         if (currentNode.position.y < Matrix.matrix[0].length - 1) {
           const newPosition = new Coordinate(currentNode.position.x, currentNode.position.y + 1);
-          if (
-            currentNode.isStar() ||
-            currentNode.isFlower() ||
-            !currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)
-          ) {
+          const alreadyVisited = currentNode.path.find(
+            node => node.position.x === newPosition.x && node.position.y === newPosition.y
+          );
+          if (currentNode.hasStar() || currentNode.hasFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
           }
@@ -149,11 +146,10 @@ class SearchAlgorithms {
         //GO UP
         if (currentNode.position.x > 0) {
           const newPosition = new Coordinate(currentNode.position.x - 1, currentNode.position.y);
-          if (
-            currentNode.isStar() ||
-            currentNode.isFlower() ||
-            !currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)
-          ) {
+          const alreadyVisited = currentNode.path.find(
+            node => node.position.x === newPosition.x && node.position.y === newPosition.y
+          );
+          if (currentNode.hasStar() || currentNode.hasFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
           }
@@ -161,11 +157,10 @@ class SearchAlgorithms {
         //GO LEFT
         if (currentNode.position.y > 0) {
           const newPosition = new Coordinate(currentNode.position.x, currentNode.position.y - 1);
-          if (
-            currentNode.isStar() ||
-            currentNode.isFlower() ||
-            !currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)
-          ) {
+          const alreadyVisited = currentNode.path.find(
+            node => node.position.x === newPosition.x && node.position.y === newPosition.y
+          );
+          if (currentNode.hasStar() || currentNode.hasFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
           }

@@ -36,11 +36,11 @@ class Node {
       this.path = [...father.path];
       this.depth = father.depth + 1;
     }
-    if (this.isStar() && !this.hasFlower()) {
+    if (this.isStarInPath() && !this.hasFlower()) {
       this.star.isPowered = true;
       this.star.durationLeft += STAR_DEFAULT_DURATION;
     }
-    if (this.isFlower() && !this.hasStar()) {
+    if (this.isFlowerInPath() && !this.hasStar()) {
       this.flower.isPowered = true;
       this.flower.shotsLeft += FLOWER_DEFAULT_SHOTS;
     }
@@ -83,6 +83,16 @@ class Node {
 
   public hasFlower(): boolean {
     return this.flower.isPowered;
+  }
+
+  public isStarInPath(): boolean {
+    return this.isStar() && !this.path.find(n => n.position.x === this.position.x && n.position.y === this.position.y);
+  }
+
+  public isFlowerInPath(): boolean {
+    return (
+      this.isFlower() && !this.path.find(n => n.position.x === this.position.x && n.position.y === this.position.y)
+    );
   }
 }
 
