@@ -116,17 +116,45 @@ class SearchAlgorithms {
   static uniformCostSearch(queue: Node[]){
     new Mario(Matrix.findPlayer()); 
     let currentNode: Node = new Node(null, Mario.position, Matrix.matrix);
+    
     queue.push(currentNode);
+    let nodeAnswer : Node = new Node(null, Mario.position, Matrix.matrix);
+    let nodePossibleAnswer : Node = new Node(null, Mario.position, Matrix.matrix); 
 
-    while (queue.length && !currentNode.isPrincess()) {
+    while (queue.length) {
+      this.printNodes(queue);
       Solution.expandedNodes.push(queue.shift()!);
+      if( nodePossibleAnswer.calculateAccumulatedCost() < nodeAnswer.calculateAccumulatedCost() && nodePossibleAnswer.isPrincess() && nodeAnswer.isPrincess()){
+        console.log("opc1");
+        nodeAnswer = nodePossibleAnswer;
+      }
+      if( currentNode.calculateAccumulatedCost() > nodeAnswer.calculateAccumulatedCost() && nodeAnswer.isPrincess()){
+        console.log("opc2");
+        queue[0] = nodeAnswer;
+        break;
+      }
+      else if ( currentNode.isPrincess() ){  
+        if( !nodePossibleAnswer.isPrincess()){
+          console.log("opc666");
+          nodePossibleAnswer = currentNode;
+          nodeAnswer = currentNode;
+        }else if( currentNode.calculateAccumulatedCost() < nodePossibleAnswer.calculateAccumulatedCost() ){
+
+          console.log("opc555");
+          nodePossibleAnswer = currentNode;
+          continue;
+        } else{ 
+          console.log("opc3");
+        } 
+      }
+      console.log("opc4");
       if (!currentNode.isWall()) {
         //GO LEFT
         if (currentNode.position.y > 0) {
           const newPosition = new Coordinate(currentNode.position.x, currentNode.position.y - 1);
           if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
-            !newNode.isWall() && SearchAlgorithms.insertNodeByValue(queue,new Node(currentNode, newPosition, Matrix.matrix), "cost");
+            !newNode.isWall() && SearchAlgorithms.insertNodeByValue( queue, new Node(currentNode, newPosition, Matrix.matrix), "cost" );
           }
         }
         //GO UP
@@ -134,7 +162,7 @@ class SearchAlgorithms {
           const newPosition = new Coordinate(currentNode.position.x - 1, currentNode.position.y);
           if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
-            !newNode.isWall() && SearchAlgorithms.insertNodeByValue(queue,new Node(currentNode, newPosition, Matrix.matrix), "cost");
+            !newNode.isWall() && SearchAlgorithms.insertNodeByValue( queue, new Node(currentNode, newPosition, Matrix.matrix), "cost" );
           }
         }
         //GO RIGHT
@@ -142,7 +170,7 @@ class SearchAlgorithms {
           const newPosition = new Coordinate(currentNode.position.x, currentNode.position.y + 1);
           if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
-            !newNode.isWall() && SearchAlgorithms.insertNodeByValue(queue,new Node(currentNode, newPosition, Matrix.matrix), "cost");
+            !newNode.isWall() && SearchAlgorithms.insertNodeByValue( queue, new Node(currentNode, newPosition, Matrix.matrix), "cost" );
           }
         }
         //GO DOWN
@@ -156,14 +184,19 @@ class SearchAlgorithms {
       }
       currentNode = queue[0];
     }
+    Solution.expandedNodes.push(queue[0]);
+    for (let i=0; i< currentNode.path.length; i++){
+      currentNode.path[i].printAccumulatedCost();
+    }
     try {
       Solution.solution = [...queue[0].path];
     } catch (error: any) {
       throw new Error("There is no path to find the princess :(");
     }
     Solution.staticPath = [...queue[0].path];
-  
 
+    
+    
   }
 
   static greedySearch(queue: Node[]) {
@@ -224,7 +257,10 @@ class SearchAlgorithms {
       console.log("######## Corte ciclo ######################");
     }
     Solution.expandedNodes.push(queue[0]);
-
+    
+    for (let i=0; i< currentNode.path.length; i++){
+      currentNode.path[i].printAccumulatedCost();
+    }
     try {
       Solution.solution = [...queue[0].path];
     } catch (error: any) {
@@ -240,7 +276,8 @@ class SearchAlgorithms {
     let methodCalculateValue : any;    
     if ( value === "cost"){
 
-      methodCalculateValue = Solution.costMoves;
+      //methodCalculateValue = Solution.costMoves;
+      methodCalculateValue = Matrix.costValue;
 
      }else if ( value === "heuristic"){
        methodCalculateValue = Matrix.heuristicValue;
@@ -250,23 +287,27 @@ class SearchAlgorithms {
     let index_i = 0;
     let high = array.length;
 
-    while (index_i < high) {
-      if (methodCalculateValue(array[index_i].position) <= methodCalculateValue(node.position)) {
-        index_i += 1;
-      } else high = index_i;
-    }
+
+    while (index_i < high) { 
+        if (methodCalculateValue(array[index_i]) <= methodCalculateValue(node)){
+          index_i+= 1;
+        } 
+        else high = index_i;
+    } 
     array.splice(index_i, 0, node);
     this.printNodes(array);
   }
 
-  static printNodes(queue: Array<Node>): void {
-    let arrayx: string = "[";
-    for (let i = 0; i < queue.length; i++) {
-      arrayx += `<${queue[i].position.x},${queue[i].position.y}> # `;
+
+  static printNodes ( queue: Array<Node>) : void{
+    let arrayx : string = "[";
+    for( let i =0; i<queue.length; i++){
+      arrayx +=`<${queue[i].position.x},${queue[i].position.y}> # `;
     }
     arrayx += "]";
     console.log(arrayx);
   }
+
 }
 
 export default SearchAlgorithms;
