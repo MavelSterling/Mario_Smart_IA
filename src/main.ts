@@ -112,7 +112,7 @@ function main(algorithm: Algorithm) {
         resetGame();
         return;
     }
-    console.log(Solution.staticPath.map(({ accumulatedCost, star }) => ({ accumulatedCost, star })));
+    console.log(Solution.staticPath.map(({ accumulatedCost, star, flower }) => ({ accumulatedCost, star, flower })));
   } catch (error) {
     alert(error);
     return;
