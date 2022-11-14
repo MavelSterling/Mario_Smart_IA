@@ -98,7 +98,7 @@ class Solution {
   }
 
   static buildTotalCost() {
-    Solution.cost = Solution.solution.reduce((acc, c) => c.cost + acc, 0);
+    Solution.cost = Solution.staticPath[Solution.staticPath.length - 1].accumulatedCost;
   }
 
   static reset() {

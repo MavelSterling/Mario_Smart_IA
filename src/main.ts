@@ -105,13 +105,14 @@ function main(algorithm: Algorithm) {
         SearchAlgorithms.greedySearch(nodeList);
         break;
       case InformedAlgorithm.ASTAR:
-        alert("A* NOT IMPLEMENTED YET");
-        return;
+        SearchAlgorithms.aStarSearch(nodeList);
+        break;
       default:
         alert("Invalid algorithm");
         resetGame();
         return;
     }
+    console.log(Solution.staticPath.map(({ accumulatedCost, star, flower }) => ({ accumulatedCost, star, flower })));
   } catch (error) {
     alert(error);
     return;
