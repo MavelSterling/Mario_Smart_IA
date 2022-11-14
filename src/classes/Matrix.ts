@@ -16,6 +16,7 @@ const INITIAL_FLOWER_POWERUP = {
 
 let star = INITIAL_STAR_POWERUP;
 let flower = INITIAL_FLOWER_POWERUP;
+let unpoweredCoordinates: Coordinate[] = [];
 
 //TODO: Solve image rendering
 class Matrix {
@@ -27,6 +28,10 @@ class Matrix {
     Matrix.matrix = array.map(a => a.split(" ")) as Object[][];
     Matrix.element = document.querySelector(".matrix")!;
     this.buildGame();
+  }
+
+  public static getObject(position: Coordinate): string {
+    return Matrix.matrix[position.x][position.y];
   }
 
   private buildGame(): void {
@@ -62,23 +67,19 @@ class Matrix {
     span.classList.add("item");
     span.classList.add(`c${currentCoordinate.x}-${currentCoordinate.y}`);
 
-    if (
-      Matrix.matrix[currentCoordinate.x][currentCoordinate.y] === Objects.BOWSER &&
-      !star.isPowered &&
-      !flower.isPowered
-    ) {
+    if (Matrix.getObject(currentCoordinate) === Objects.BOWSER && !star.isPowered && !flower.isPowered) {
       const currentImg = document.createElement("img");
       currentImg.classList.add("item");
       currentImg.classList.add(`c${currentCoordinate.x}-${currentCoordinate.y}`);
       currentImg.src = `/${OBJECTS.BOWSER}.png`;
       MarioElement.replaceWith(currentImg);
-    } else if (Matrix.matrix[currentCoordinate.x][currentCoordinate.y] === Objects.STAR && flower.isPowered) {
+    } else if (Matrix.getObject(currentCoordinate) === Objects.STAR && flower.isPowered) {
       const currentImg = document.createElement("img");
       currentImg.classList.add("item");
       currentImg.classList.add(`c${currentCoordinate.x}-${currentCoordinate.y}`);
       currentImg.src = `/${OBJECTS.STAR}.png`;
       MarioElement.replaceWith(currentImg);
-    } else if (Matrix.matrix[currentCoordinate.x][currentCoordinate.y] === Objects.FLOWER && star.isPowered) {
+    } else if (Matrix.getObject(currentCoordinate) === Objects.FLOWER && star.isPowered) {
       const currentImg = document.createElement("img");
       currentImg.classList.add("item");
       currentImg.classList.add(`c${currentCoordinate.x}-${currentCoordinate.y}`);
@@ -95,45 +96,47 @@ class Matrix {
     nextImg.classList.add("item");
     nextImg.classList.add(`c${nextCoordinate.x}-${nextCoordinate.y}`);
 
-    if (Matrix.matrix[nextCoordinate.x][nextCoordinate.y] === OBJECTS.PRINCESS) {
+    if (Matrix.getObject(nextCoordinate) === OBJECTS.PRINCESS) {
       nextImg.src = `/goal.png`;
     } else if (star.isPowered) {
       nextImg.src = `/2-star.png`;
       star.duration -= 1;
     } else if (flower.isPowered) {
       nextImg.src = `/2-flower.png`;
-      if (Matrix.matrix[nextCoordinate.x][nextCoordinate.y] === OBJECTS.BOWSER) flower.shots -= 1;
+      if (Matrix.getObject(nextCoordinate) === OBJECTS.BOWSER) flower.shots -= 1;
     } else {
       nextImg.src = `/${OBJECTS.PLAYER}.png`;
     }
 
-    switch (Matrix.matrix[nextCoordinate.x][nextCoordinate.y]) {
+    switch (Matrix.getObject(nextCoordinate)) {
       case OBJECTS.PRINCESS:
         nextImg.src = `/goal.png`;
         break;
       case OBJECTS.STAR:
-        if (
-          flower.isPowered ||
-          !Solution.solution.find(n => n.position.x === currentCoordinate.x && n.position.y === currentCoordinate.y)
-        )
+        if (flower.isPowered || !!unpoweredCoordinates.find(c => c.x === nextCoordinate.x && c.y === nextCoordinate.y))
           break;
         nextImg.src = `/2-star.png`;
         star.isPowered = true;
+        unpoweredCoordinates.push(nextCoordinate);
+        console.log(
+          "solution",
+          Solution.solution.map(n => n)
+        );
         star.duration += STAR_DEFAULT_DURATION;
         break;
       case OBJECTS.FLOWER:
-        if (
-          star.isPowered ||
-          !Solution.solution.find(n => n.position.x === currentCoordinate.x && n.position.y === currentCoordinate.y)
-        )
+        if (star.isPowered || !!unpoweredCoordinates.find(c => c.x === nextCoordinate.x && c.y === nextCoordinate.y))
           break;
         nextImg.src = `/2-flower.png`;
         flower.isPowered = true;
+        unpoweredCoordinates.push(nextCoordinate);
         flower.shots += FLOWER_DEFAULT_SHOTS;
         break;
       default:
         break;
     }
+    console.log("star", { ...star });
+    console.log("flower", { ...flower });
 
     nextMarioElement.replaceWith(nextImg);
   }
@@ -183,6 +186,7 @@ class Matrix {
     star.duration = 0;
     flower.isPowered = false;
     flower.shots = 0;
+    unpoweredCoordinates = [];
   }
 
   static clear() {
