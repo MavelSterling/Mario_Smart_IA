@@ -17,6 +17,7 @@ const INITIAL_FLOWER_POWERUP = {
 let star = INITIAL_STAR_POWERUP;
 let flower = INITIAL_FLOWER_POWERUP;
 
+//TODO: Solve image rendering
 class Matrix {
   static matrix: Object[][] = [];
   static element: HTMLElement;

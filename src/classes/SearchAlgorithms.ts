@@ -127,7 +127,7 @@ class SearchAlgorithms {
           const alreadyVisited = currentNode.path.find(
             node => node.position.x === newPosition.x && node.position.y === newPosition.y
           );
-          if (currentNode.isStar() || currentNode.isFlower() || !alreadyVisited) {
+          if (currentNode.hasStar() || currentNode.hasFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
           }
@@ -138,7 +138,7 @@ class SearchAlgorithms {
           const alreadyVisited = currentNode.path.find(
             node => node.position.x === newPosition.x && node.position.y === newPosition.y
           );
-          if (currentNode.isStar() || currentNode.isFlower() || !alreadyVisited) {
+          if (currentNode.hasStar() || currentNode.hasFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
           }
@@ -149,7 +149,7 @@ class SearchAlgorithms {
           const alreadyVisited = currentNode.path.find(
             node => node.position.x === newPosition.x && node.position.y === newPosition.y
           );
-          if (currentNode.isStar() || currentNode.isFlower() || !alreadyVisited) {
+          if (currentNode.hasStar() || currentNode.hasFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
           }
@@ -160,7 +160,7 @@ class SearchAlgorithms {
           const alreadyVisited = currentNode.path.find(
             node => node.position.x === newPosition.x && node.position.y === newPosition.y
           );
-          if (currentNode.isStar() || currentNode.isFlower() || !alreadyVisited) {
+          if (currentNode.hasStar() || currentNode.hasFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
           }
