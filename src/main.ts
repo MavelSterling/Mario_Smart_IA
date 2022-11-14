@@ -105,8 +105,8 @@ function main(algorithm: Algorithm) {
         SearchAlgorithms.greedySearch(nodeList);
         break;
       case InformedAlgorithm.ASTAR:
-        alert("A* NOT IMPLEMENTED YET");
-        return;
+        SearchAlgorithms.aStarSearch(nodeList);
+        break;
       default:
         alert("Invalid algorithm");
         resetGame();
