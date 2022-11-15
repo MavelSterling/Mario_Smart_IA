@@ -112,7 +112,8 @@ function main(algorithm: Algorithm) {
         resetGame();
         return;
     }
-    console.log(Solution.staticPath.map(({ accumulatedCost, star, flower }) => ({ accumulatedCost, star, flower })));
+    console.log(Solution.staticPath.map(n => n));
+    // console.log(Solution.staticPath.map(({ accumulatedCost, star, flower }) => ({ accumulatedCost, star, flower })));
   } catch (error) {
     alert(error);
     return;
