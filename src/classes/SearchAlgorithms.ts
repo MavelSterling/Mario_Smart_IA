@@ -124,9 +124,12 @@ class SearchAlgorithms {
         //GO DOWN
         if (currentNode.position.x < Matrix.matrix.length - 1) {
           const newPosition = new Coordinate(currentNode.position.x + 1, currentNode.position.y);
-          const alreadyVisited = currentNode.path.find(
+          const currentNodeInPath = currentNode.path.find(
             node => node.position.x === newPosition.x && node.position.y === newPosition.y
           );
+          const alreadyVisited = currentNode.hasFlower()
+            ? currentNode.flower.shotsLeft <= (currentNodeInPath?.flower.shotsLeft || currentNode.flower.shotsLeft - 1)
+            : !!currentNodeInPath;
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
@@ -135,9 +138,12 @@ class SearchAlgorithms {
         //GO RIGHT
         if (currentNode.position.y < Matrix.matrix[0].length - 1) {
           const newPosition = new Coordinate(currentNode.position.x, currentNode.position.y + 1);
-          const alreadyVisited = currentNode.path.find(
+          const currentNodeInPath = currentNode.path.find(
             node => node.position.x === newPosition.x && node.position.y === newPosition.y
           );
+          const alreadyVisited = currentNode.hasFlower()
+            ? currentNode.flower.shotsLeft <= (currentNodeInPath?.flower.shotsLeft || currentNode.flower.shotsLeft - 1)
+            : !!currentNodeInPath;
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
@@ -146,9 +152,12 @@ class SearchAlgorithms {
         //GO UP
         if (currentNode.position.x > 0) {
           const newPosition = new Coordinate(currentNode.position.x - 1, currentNode.position.y);
-          const alreadyVisited = currentNode.path.find(
+          const currentNodeInPath = currentNode.path.find(
             node => node.position.x === newPosition.x && node.position.y === newPosition.y
           );
+          const alreadyVisited = currentNode.hasFlower()
+            ? currentNode.flower.shotsLeft <= (currentNodeInPath?.flower.shotsLeft || currentNode.flower.shotsLeft - 1)
+            : !!currentNodeInPath;
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
@@ -157,9 +166,12 @@ class SearchAlgorithms {
         //GO LEFT
         if (currentNode.position.y > 0) {
           const newPosition = new Coordinate(currentNode.position.x, currentNode.position.y - 1);
-          const alreadyVisited = currentNode.path.find(
+          const currentNodeInPath = currentNode.path.find(
             node => node.position.x === newPosition.x && node.position.y === newPosition.y
           );
+          const alreadyVisited = currentNode.hasFlower()
+            ? currentNode.flower.shotsLeft <= (currentNodeInPath?.flower.shotsLeft || currentNode.flower.shotsLeft - 1)
+            : !!currentNodeInPath;
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
@@ -331,9 +343,14 @@ class SearchAlgorithms {
           }
         }
       }
-      console.log(`Coordenada ${currentNode.position.x},${currentNode.position.y} costoReal: ${currentNode.accumulatedCost} - costoHeuristica: ${Matrix.heuristicValue(currentNode.position)}, Total: ${Matrix.costAndHeuristicValue(currentNode)}`);
+      console.log(
+        `Coordenada ${currentNode.position.x},${currentNode.position.y} costoReal: ${
+          currentNode.accumulatedCost
+        } - costoHeuristica: ${Matrix.heuristicValue(currentNode.position)}, Total: ${Matrix.costAndHeuristicValue(
+          currentNode
+        )}`
+      );
       currentNode = queue.sort((a, b) => Matrix.costAndHeuristicValue(a) - Matrix.costAndHeuristicValue(b))[0];
-      
     }
     Solution.expandedNodes.push(queue[0]);
 
@@ -345,7 +362,5 @@ class SearchAlgorithms {
     Solution.staticPath = [...queue[0].path];
   }
 }
-
-
 
 export default SearchAlgorithms;
