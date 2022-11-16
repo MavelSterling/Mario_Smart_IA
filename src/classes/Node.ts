@@ -26,25 +26,26 @@ class Node {
       this.flower = { ...this.father!.flower };
       let cost = COSTS[this.object];
       if (this.hasStar()) {
-        cost = 0.5;
+        cost = 0.5; //si tiene estrella costo 0.5
         this.star.durationLeft--;
-      } else if (this.hasFlower() && this.isBowser()) {
+      } else if (this.hasFlower() && this.isBowser()) { //Si tiene flor y esta el kopa
         this.flower.shotsLeft--;
-        cost = 1;
+        cost = 1; //costo 1
       }
-      this.accumulatedCost = father.accumulatedCost + cost;
+      this.accumulatedCost = father.accumulatedCost + cost; //costo acomulado
       this.path = [...father.path];
-      this.depth = father.depth + 1;
+      this.depth = father.depth + 1; //profundidad
     }
-    if (this.isStarInPath() && !this.hasFlower()) {
-      this.star.isPowered = true;
+    if (this.isStarInPath() && !this.hasFlower()) { //si esta la estrella en la casilla y no tiene flor
+      this.star.isPowered = true; //se activan los poderes de la estrella
       this.star.durationLeft += STAR_DEFAULT_DURATION;
     }
-    if (this.isFlowerInPath() && !this.hasStar()) {
-      this.flower.isPowered = true;
+    if (this.isFlowerInPath() && !this.hasStar()) { //Si esta la flor en la casilla y no tiene estrella
+      this.flower.isPowered = true; //se activan los poderes de la flor
       this.flower.shotsLeft += FLOWER_DEFAULT_SHOTS;
     }
-    if (this.star.durationLeft === 0) this.star.isPowered = false;
+    //si la duracion es igual a cero esta desactivado los poderes
+    if (this.star.durationLeft === 0) this.star.isPowered = false; 
     if (this.flower.shotsLeft === 0) this.flower.isPowered = false;
     this.path.push(this);
   }
