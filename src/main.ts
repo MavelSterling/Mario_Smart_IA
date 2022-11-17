@@ -65,6 +65,7 @@ const startGame = (e: SubmitEvent) => {
     alert("Select a game first");
     return;
   }
+  initAnimationButton.toggleAttribute("disabled");
   const data: Settings = Object.fromEntries(new FormData(initAnimationForm) as any) as Settings;
   data.interval = Number(data.interval);
   let selectedAlgorithm: Algorithm;
@@ -79,7 +80,6 @@ const startGame = (e: SubmitEvent) => {
     interval: data.interval,
     algorithm: selectedAlgorithm,
   });
-  initAnimationButton.toggleAttribute("disabled");
   main(Animation.algorithm);
 };
 
@@ -99,14 +99,14 @@ function main(algorithm: Algorithm) {
         SearchAlgorithms.depthFirstSearch(nodeList);
         break;
       case UninformedAlgorithm.COST:
-        alert("Cost NOT IMPLEMENTED YET");
-        return;
+        SearchAlgorithms.uniformCostSearch(nodeList);
+        break;
       case InformedAlgorithm.GREEDY:
         SearchAlgorithms.greedySearch(nodeList);
         break;
       case InformedAlgorithm.ASTAR:
-        alert("A* NOT IMPLEMENTED YET");
-        return;
+        SearchAlgorithms.aStarSearch(nodeList);
+        break;
       default:
         alert("Invalid algorithm");
         resetGame();
@@ -120,7 +120,6 @@ function main(algorithm: Algorithm) {
   const time = document.querySelector(".stats__time") as HTMLDivElement;
   time.innerHTML = `${end - start} ms`;
   Solution.buildSolution();
-
   Matrix.updateGameStats();
   animate();
 }

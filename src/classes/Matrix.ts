@@ -4,6 +4,7 @@ import Coordinate from "./Coordinate";
 import Mario from "./Mario";
 import { STAR_DEFAULT_DURATION, FLOWER_DEFAULT_SHOTS } from "./Mario";
 import Solution from "./Solution";
+import Node from "./Node";
 
 const INITIAL_STAR_POWERUP = {
   isPowered: false,
@@ -16,7 +17,9 @@ const INITIAL_FLOWER_POWERUP = {
 
 let star = INITIAL_STAR_POWERUP;
 let flower = INITIAL_FLOWER_POWERUP;
+let unpoweredCoordinates: Coordinate[] = [];
 
+//TODO: Solve image rendering
 class Matrix {
   static matrix: Object[][] = [];
   static element: HTMLElement;
@@ -26,6 +29,10 @@ class Matrix {
     Matrix.matrix = array.map(a => a.split(" ")) as Object[][];
     Matrix.element = document.querySelector(".matrix")!;
     this.buildGame();
+  }
+
+  public static getObject(position: Coordinate): string {
+    return Matrix.matrix[position.x][position.y];
   }
 
   private buildGame(): void {
@@ -61,16 +68,24 @@ class Matrix {
     span.classList.add("item");
     span.classList.add(`c${currentCoordinate.x}-${currentCoordinate.y}`);
 
-    if (
-      Matrix.matrix[currentCoordinate.x][currentCoordinate.y] === Objects.BOWSER &&
-      !star.isPowered &&
-      !flower.isPowered
-    ) {
-      const img = document.createElement("img");
-      img.classList.add("item");
-      img.classList.add(`c${currentCoordinate.x}-${currentCoordinate.y}`);
-      img.src = `/${OBJECTS.BOWSER}.png`;
-      MarioElement.replaceWith(img);
+    if (Matrix.getObject(currentCoordinate) === Objects.BOWSER && !star.isPowered && !flower.isPowered) {
+      const currentImg = document.createElement("img");
+      currentImg.classList.add("item");
+      currentImg.classList.add(`c${currentCoordinate.x}-${currentCoordinate.y}`);
+      currentImg.src = `/${OBJECTS.BOWSER}.png`;
+      MarioElement.replaceWith(currentImg);
+    } else if (Matrix.getObject(currentCoordinate) === Objects.STAR && flower.isPowered) {
+      const currentImg = document.createElement("img");
+      currentImg.classList.add("item");
+      currentImg.classList.add(`c${currentCoordinate.x}-${currentCoordinate.y}`);
+      currentImg.src = `/${OBJECTS.STAR}.png`;
+      MarioElement.replaceWith(currentImg);
+    } else if (Matrix.getObject(currentCoordinate) === Objects.FLOWER && star.isPowered) {
+      const currentImg = document.createElement("img");
+      currentImg.classList.add("item");
+      currentImg.classList.add(`c${currentCoordinate.x}-${currentCoordinate.y}`);
+      currentImg.src = `/${OBJECTS.FLOWER}.png`;
+      MarioElement.replaceWith(currentImg);
     } else {
       MarioElement.replaceWith(span);
     }
@@ -78,43 +93,53 @@ class Matrix {
     if (flower.shots === 0) flower.isPowered = false;
 
     const nextMarioElement = document.querySelector(`.c${nextCoordinate.x}-${nextCoordinate.y}`)! as HTMLImageElement;
-    const img = document.createElement("img");
-    img.classList.add("item");
-    img.classList.add(`c${nextCoordinate.x}-${nextCoordinate.y}`);
+    const nextImg = document.createElement("img");
+    nextImg.classList.add("item");
+    nextImg.classList.add(`c${nextCoordinate.x}-${nextCoordinate.y}`);
 
-    if (Matrix.matrix[nextCoordinate.x][nextCoordinate.y] === OBJECTS.PRINCESS) {
-      img.src = `/goal.png`;
+    if (Matrix.getObject(nextCoordinate) === OBJECTS.PRINCESS) {
+      nextImg.src = `/goal.png`;
     } else if (star.isPowered) {
-      img.src = `/2-star.png`;
+      nextImg.src = `/2-star.png`;
       star.duration -= 1;
     } else if (flower.isPowered) {
-      img.src = `/2-flower.png`;
-      if (Matrix.matrix[nextCoordinate.x][nextCoordinate.y] === OBJECTS.BOWSER) flower.shots -= 1;
+      nextImg.src = `/2-flower.png`;
+      if (Matrix.getObject(nextCoordinate) === OBJECTS.BOWSER) flower.shots -= 1;
     } else {
-      img.src = `/${OBJECTS.PLAYER}.png`;
+      nextImg.src = `/${OBJECTS.PLAYER}.png`;
     }
 
-    switch (Matrix.matrix[nextCoordinate.x][nextCoordinate.y]) {
+    switch (Matrix.getObject(nextCoordinate)) {
       case OBJECTS.PRINCESS:
-        img.src = `/goal.png`;
+        nextImg.src = `/goal.png`;
         break;
       case OBJECTS.STAR:
-        if (flower.isPowered) break;
-        img.src = `/2-star.png`;
+        if (flower.isPowered || !!unpoweredCoordinates.find(c => c.x === nextCoordinate.x && c.y === nextCoordinate.y))
+          break;
+        nextImg.src = `/2-star.png`;
         star.isPowered = true;
+        unpoweredCoordinates.push(nextCoordinate);
+        console.log(
+          "solution",
+          Solution.solution.map(n => n)
+        );
         star.duration += STAR_DEFAULT_DURATION;
         break;
       case OBJECTS.FLOWER:
-        if (star.isPowered) break;
-        img.src = `/2-flower.png`;
+        if (star.isPowered || !!unpoweredCoordinates.find(c => c.x === nextCoordinate.x && c.y === nextCoordinate.y))
+          break;
+        nextImg.src = `/2-flower.png`;
         flower.isPowered = true;
+        unpoweredCoordinates.push(nextCoordinate);
         flower.shots += FLOWER_DEFAULT_SHOTS;
         break;
       default:
         break;
     }
+    console.log("star", { ...star });
+    console.log("flower", { ...flower });
 
-    nextMarioElement.replaceWith(img);
+    nextMarioElement.replaceWith(nextImg);
   }
 
   static updateGameStats() {
@@ -162,6 +187,7 @@ class Matrix {
     star.duration = 0;
     flower.isPowered = false;
     flower.shots = 0;
+    unpoweredCoordinates = [];
   }
 
   static clear() {
@@ -191,14 +217,18 @@ class Matrix {
     return playerPosition!;
   }
 
-  static heuristicValue( coordinates : Coordinate ) : number {
-    const coordinatePrincess : Coordinate = Matrix.findPrincess();
-    let manhattanDistance : number = Math.abs(coordinatePrincess.y - coordinates.y) + Math.abs(coordinatePrincess.x - coordinates.x); 
-    console.log(`Coordenadas: ${coordinates.x},${coordinates.y} - Heuristica :${manhattanDistance}`); // Si se desea ver los valores de la heurística según la posición de la coordenada
-    
-    return manhattanDistance;
+  static heuristicValue(coordinates: Coordinate): number {
+    const coordinatePrincess: Coordinate = Matrix.findPrincess();
+    let manhattanDistance: number =
+      Math.abs(coordinatePrincess.y - coordinates.y) + Math.abs(coordinatePrincess.x - coordinates.x);
+    return manhattanDistance / 2;
   }
 
+  static costAndHeuristicValue(node: Node): number {
+    let costAndHeuristic = 0;
+    costAndHeuristic = Matrix.heuristicValue(node.position) + node.accumulatedCost;
+    return costAndHeuristic;
+  }
 }
 
 export default Matrix;
