@@ -113,6 +113,7 @@ class SearchAlgorithms {
     Solution.staticPath = [...queue[0].path];
   }
 
+  //FUNCION COSTO UNIFORME
   static uniformCostSearch(queue: Node[]) {
     new Mario(Matrix.findPlayer());
 
