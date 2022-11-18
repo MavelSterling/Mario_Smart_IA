@@ -221,13 +221,10 @@ class Matrix {
     const coordinatePrincess: Coordinate = Matrix.findPrincess();
     let manhattanDistance: number =
       Math.abs(coordinatePrincess.y - coordinates.y) + Math.abs(coordinatePrincess.x - coordinates.x);
-    //console.log(`Coordenadas: ${coordinates.x},${coordinates.y} - Heuristica :${manhattanDistance}`); // Si se desea ver los valores de la heurística según la posición de la coordenada
-
     return manhattanDistance / 2;
   }
 
-  
-  static costAndHeuristicValue(node : Node): number {
+  static costAndHeuristicValue(node: Node): number {
     let costAndHeuristic = 0;
     costAndHeuristic = Matrix.heuristicValue(node.position) + node.accumulatedCost;
     return costAndHeuristic;

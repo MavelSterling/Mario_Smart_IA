@@ -65,6 +65,7 @@ const startGame = (e: SubmitEvent) => {
     alert("Select a game first");
     return;
   }
+  initAnimationButton.toggleAttribute("disabled");
   const data: Settings = Object.fromEntries(new FormData(initAnimationForm) as any) as Settings;
   data.interval = Number(data.interval);
   let selectedAlgorithm: Algorithm;
@@ -79,7 +80,6 @@ const startGame = (e: SubmitEvent) => {
     interval: data.interval,
     algorithm: selectedAlgorithm,
   });
-  initAnimationButton.toggleAttribute("disabled");
   main(Animation.algorithm);
 };
 
@@ -112,8 +112,6 @@ function main(algorithm: Algorithm) {
         resetGame();
         return;
     }
-    console.log(Solution.staticPath.map(n => n));
-    // console.log(Solution.staticPath.map(({ accumulatedCost, star, flower }) => ({ accumulatedCost, star, flower })));
   } catch (error) {
     alert(error);
     return;
@@ -122,7 +120,6 @@ function main(algorithm: Algorithm) {
   const time = document.querySelector(".stats__time") as HTMLDivElement;
   time.innerHTML = `${end - start} ms`;
   Solution.buildSolution();
-
   Matrix.updateGameStats();
   animate();
 }
