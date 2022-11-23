@@ -74,13 +74,21 @@ class Matrix {
       currentImg.classList.add(`c${currentCoordinate.x}-${currentCoordinate.y}`);
       currentImg.src = `/${OBJECTS.BOWSER}.png`;
       MarioElement.replaceWith(currentImg);
-    } else if (Matrix.getObject(currentCoordinate) === Objects.STAR && flower.isPowered) {
+    } else if (
+      Matrix.getObject(currentCoordinate) === Objects.STAR &&
+      flower.isPowered &&
+      unpoweredCoordinates.find(c => c.x === nextCoordinate.x && c.y === nextCoordinate.y)
+    ) {
       const currentImg = document.createElement("img");
       currentImg.classList.add("item");
       currentImg.classList.add(`c${currentCoordinate.x}-${currentCoordinate.y}`);
       currentImg.src = `/${OBJECTS.STAR}.png`;
       MarioElement.replaceWith(currentImg);
-    } else if (Matrix.getObject(currentCoordinate) === Objects.FLOWER && star.isPowered) {
+    } else if (
+      Matrix.getObject(currentCoordinate) === Objects.FLOWER &&
+      star.isPowered &&
+      unpoweredCoordinates.find(c => c.x === nextCoordinate.x && c.y === nextCoordinate.y)
+    ) {
       const currentImg = document.createElement("img");
       currentImg.classList.add("item");
       currentImg.classList.add(`c${currentCoordinate.x}-${currentCoordinate.y}`);
