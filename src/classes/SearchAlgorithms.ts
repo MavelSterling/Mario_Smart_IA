@@ -129,7 +129,7 @@ class SearchAlgorithms {
           );
           const alreadyVisited = currentNode.hasFlower()
             ? currentNode.flower.shotsLeft <= (currentNodeInPath?.flower.shotsLeft || currentNode.flower.shotsLeft - 1)
-            : !!currentNodeInPath;
+            : !!currentNodeInPath && !currentNode.isBowser();
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
@@ -143,7 +143,7 @@ class SearchAlgorithms {
           );
           const alreadyVisited = currentNode.hasFlower()
             ? currentNode.flower.shotsLeft <= (currentNodeInPath?.flower.shotsLeft || currentNode.flower.shotsLeft - 1)
-            : !!currentNodeInPath;
+            : !!currentNodeInPath && !currentNode.isBowser();
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
@@ -157,7 +157,7 @@ class SearchAlgorithms {
           );
           const alreadyVisited = currentNode.hasFlower()
             ? currentNode.flower.shotsLeft <= (currentNodeInPath?.flower.shotsLeft || currentNode.flower.shotsLeft - 1)
-            : !!currentNodeInPath;
+            : !!currentNodeInPath && !currentNode.isBowser();
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
@@ -171,7 +171,7 @@ class SearchAlgorithms {
           );
           const alreadyVisited = currentNode.hasFlower()
             ? currentNode.flower.shotsLeft <= (currentNodeInPath?.flower.shotsLeft || currentNode.flower.shotsLeft - 1)
-            : !!currentNodeInPath;
+            : !!currentNodeInPath && !currentNode.isBowser();
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
@@ -265,7 +265,7 @@ class SearchAlgorithms {
           );
           const alreadyVisited = currentNode.hasFlower()
             ? currentNode.flower.shotsLeft <= (currentNodeInPath?.flower.shotsLeft || currentNode.flower.shotsLeft - 1)
-            : !!currentNodeInPath;
+            : !!currentNodeInPath && !currentNode.isBowser();
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
@@ -279,7 +279,7 @@ class SearchAlgorithms {
           );
           const alreadyVisited = currentNode.hasFlower()
             ? currentNode.flower.shotsLeft <= (currentNodeInPath?.flower.shotsLeft || currentNode.flower.shotsLeft - 1)
-            : !!currentNodeInPath;
+            : !!currentNodeInPath && !currentNode.isBowser();
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
@@ -293,7 +293,7 @@ class SearchAlgorithms {
           );
           const alreadyVisited = currentNode.hasFlower()
             ? currentNode.flower.shotsLeft <= (currentNodeInPath?.flower.shotsLeft || currentNode.flower.shotsLeft - 1)
-            : !!currentNodeInPath;
+            : !!currentNodeInPath && !currentNode.isBowser();
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
@@ -307,7 +307,7 @@ class SearchAlgorithms {
           );
           const alreadyVisited = currentNode.hasFlower()
             ? currentNode.flower.shotsLeft <= (currentNodeInPath?.flower.shotsLeft || currentNode.flower.shotsLeft - 1)
-            : !!currentNodeInPath;
+            : !!currentNodeInPath && !currentNode.isBowser();
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
