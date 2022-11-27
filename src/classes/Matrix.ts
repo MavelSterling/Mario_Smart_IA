@@ -74,13 +74,21 @@ class Matrix {
       currentImg.classList.add(`c${currentCoordinate.x}-${currentCoordinate.y}`);
       currentImg.src = `/${OBJECTS.BOWSER}.png`;
       MarioElement.replaceWith(currentImg);
-    } else if (Matrix.getObject(currentCoordinate) === Objects.STAR && flower.isPowered) {
+    } else if (
+      Matrix.getObject(currentCoordinate) === Objects.STAR &&
+      flower.isPowered &&
+      unpoweredCoordinates.find(c => c.x === nextCoordinate.x && c.y === nextCoordinate.y)
+    ) {
       const currentImg = document.createElement("img");
       currentImg.classList.add("item");
       currentImg.classList.add(`c${currentCoordinate.x}-${currentCoordinate.y}`);
       currentImg.src = `/${OBJECTS.STAR}.png`;
       MarioElement.replaceWith(currentImg);
-    } else if (Matrix.getObject(currentCoordinate) === Objects.FLOWER && star.isPowered) {
+    } else if (
+      Matrix.getObject(currentCoordinate) === Objects.FLOWER &&
+      star.isPowered &&
+      unpoweredCoordinates.find(c => c.x === nextCoordinate.x && c.y === nextCoordinate.y)
+    ) {
       const currentImg = document.createElement("img");
       currentImg.classList.add("item");
       currentImg.classList.add(`c${currentCoordinate.x}-${currentCoordinate.y}`);
@@ -221,13 +229,10 @@ class Matrix {
     const coordinatePrincess: Coordinate = Matrix.findPrincess();
     let manhattanDistance: number =
       Math.abs(coordinatePrincess.y - coordinates.y) + Math.abs(coordinatePrincess.x - coordinates.x);
-    //console.log(`Coordenadas: ${coordinates.x},${coordinates.y} - Heuristica :${manhattanDistance}`); // Si se desea ver los valores de la heurística según la posición de la coordenada
-
     return manhattanDistance / 2;
   }
 
-  
-  static costAndHeuristicValue(node : Node): number {
+  static costAndHeuristicValue(node: Node): number {
     let costAndHeuristic = 0;
     costAndHeuristic = Matrix.heuristicValue(node.position) + node.accumulatedCost;
     return costAndHeuristic;
