@@ -7,13 +7,13 @@ import { FLOWER_DEFAULT_SHOTS, STAR_DEFAULT_DURATION } from "./Mario";
 class Node {
 
   father: Node | null = null; // nodo padre
-  path: Node[] = []; // arreglo del camino
-  position: Coordinate; // coordenadas para la posicion
+  path: Node[] = []; // camino actual
+  position: Coordinate; // coordenadas para la posicion actual del nodo
   gameState: string[][]; // estado del juego
   depth: number = 0; // profundidad
   cost: number = 0; // costo
   accumulatedCost: number = 0; // costo acumulado
-  object: Object; // objeto
+  object: Object; //  tipo de objeto
   //estrella: poder encendido (defecto falso) y duración (defecto 0)
   star: { isPowered: boolean; durationLeft: number } = { isPowered: false, durationLeft: 0 };
   //flor: poder encendido (defecto falso) y disparo (defecto 0)
@@ -35,7 +35,7 @@ class Node {
       // La flor no es el nodo padre
       this.flower = { ...this.father!.flower };
 
-      // variable para el costo del objeto
+      // variable para el costo segun el objeto 
       let cost = COSTS[this.object];
 
       // si tiene una estrella
@@ -141,14 +141,14 @@ class Node {
 
   // variable si la estrella esta en el camino: boolean
   public isStarInPath(): boolean {
-    // se retorna si esta la estrella y no se retorna la posicion del camino encontrado
+    // se retorna si esta la estrella y no esta en el camino para no volverla a tomar
     // find devuelve el primer valor encontrado con la condición de la posicion en x y y
     return this.isStar() && !this.path.find(n => n.position.x === this.position.x && n.position.y === this.position.y);
   }
 
   // variable si la flor esta en el camino: boolean
   public isFlowerInPath(): boolean {
-    // se retorna si esta la flor y no se retorna la posicion del camino encontrado
+    // se retorna si esta la flor y no esta en el camino para no volverla a tomar
     // find devuelve el primer valor encontrado con la condición de la posicion en x y y
     return (
       this.isFlower() && !this.path.find(n => n.position.x === this.position.x && n.position.y === this.position.y)
