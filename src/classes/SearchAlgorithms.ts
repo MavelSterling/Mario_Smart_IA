@@ -378,6 +378,7 @@ class SearchAlgorithms { // implementacion de los algoritmos
           }
         }
       }
+      // el nodo actual es igual a la cola ordenada respecto a los f(n) 
       currentNode = queue.sort((a, b) => Matrix.costAndHeuristicValue(a) - Matrix.costAndHeuristicValue(b))[0];
     }
     Solution.expandedNodes.push(queue[0]);
