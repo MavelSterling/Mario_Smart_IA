@@ -9,11 +9,11 @@ export const FLOWER_DEFAULT_SHOTS = 1;
 // declaracion de los campos de los poderes
 interface Powers {
   star: {
-    durationLeft: number;
+    durationLeft: number; // duracion de la izquierda
     isPoweredUp: boolean;
   };
   flower: {
-    shotsLeft: number;
+    shotsLeft: number; // disparo a la izquierda
     isPoweredUp: boolean;
   };
 }
