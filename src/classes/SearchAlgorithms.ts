@@ -458,6 +458,10 @@ class SearchAlgorithms { // implementacion de los algoritmos
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+             /*if(!newNode.isWall()) {
+              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+              console.count("LEFT"); 
+            }*/
           }
         }
         //GO UP
@@ -472,6 +476,10 @@ class SearchAlgorithms { // implementacion de los algoritmos
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+             /*if(!newNode.isWall()) {
+              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+              console.count("UP"); 
+            }*/
           }
         }
         //GO RIGHT
@@ -486,6 +494,33 @@ class SearchAlgorithms { // implementacion de los algoritmos
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+
+             /*
+            if(!newNode.isWall()) {
+              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+              console.count("Right"); 
+            }
+            */
+          }
+        }
+        //JUMP RIGHT
+        if (currentNode.position.y < Matrix.matrix[0].length - 2) {
+          const newPosition = new Coordinate(currentNode.position.x, currentNode.position.y + 2);
+          const currentNodeInPath = currentNode.path.find(
+            node => node.position.x === newPosition.x && node.position.y === newPosition.y
+          );
+          const alreadyVisited = currentNode.hasFlower()
+            ? currentNode.flower.shotsLeft <= (currentNodeInPath?.flower.shotsLeft || currentNode.flower.shotsLeft - 1)
+            : !!currentNodeInPath && !currentNode.isBowser();
+          if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
+            const newNode = new Node(currentNode, newPosition, Matrix.matrix);
+            !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+             
+            /*if(!newNode.isWall()) {
+              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+              console.count("JUMP RIGHT"); 
+            }*/
+            
           }
         }
         //GO DOWN
@@ -500,6 +535,10 @@ class SearchAlgorithms { // implementacion de los algoritmos
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+            /*if(!newNode.isWall()) {
+              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+              console.count("DOWN"); 
+            }*/
           }
         }
       }
