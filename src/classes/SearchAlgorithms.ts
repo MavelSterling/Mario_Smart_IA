@@ -4,6 +4,7 @@ import Matrix from "./Matrix";
 import Node from "./Node";
 import Solution from "./Solution";
 
+// ORDEN DE LAS OPERACIONES: izquierda, arriba, derecha y abajo
 class SearchAlgorithms { // implementacion de los algoritmos
 
   // algoritmo por amplitud, recibe un nodo
