@@ -5,6 +5,9 @@ export const STAR_DEFAULT_DURATION = 6;
 
 // Al tener la flor el costo es 1
 export const FLOWER_DEFAULT_SHOTS = 1;
+// si el costo es 2
+//export const FLOWER_DEFAULT_SHOTS = 2;
+
 
 // declaracion de los campos de los poderes
 interface Powers {
