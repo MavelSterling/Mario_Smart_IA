@@ -4,7 +4,6 @@ import Matrix from "./Matrix";
 import Node from "./Node";
 import Solution from "./Solution";
 
-// ORDEN DE LAS OPERACIONES: izquierda, arriba, derecha y abajo
 class SearchAlgorithms { // implementacion de los algoritmos
 
   // algoritmo por amplitud, recibe un nodo
@@ -24,11 +23,12 @@ class SearchAlgorithms { // implementacion de los algoritmos
       // Se agrega al final de los nodos expandidos (push), el primer valor de la cola que fue eliminado de la cola (shift)
       Solution.expandedNodes.push(queue.shift()!);
 
+      // ORDEN DE LAS OPERACIONES: izquierda, arriba, derecha y abajo
+
       // si el nodo actual no es un muro
       if (!currentNode.isWall()) {
         
-        //GO LEFT - ir por la izquierda
-        
+        //GO LEFT - ir por la izquierda        
         // la posicion de y del nodo actual es mayor a 0
         if (currentNode.position.y > 0) {
           // la nueva posicion es una nueva coordenada con la posicion x del nodo actual y la posicion de y-1 del nodo actual
@@ -41,10 +41,17 @@ class SearchAlgorithms { // implementacion de los algoritmos
             // si el nuevo nodo es distinto a un muro y en la cola se agrega un nodo que contiene
             // el nodo actual, la nueva posicion es una nueva coordenada y la matriz
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+
+            // Veces a la izquierda de los nodos expandidos
+            /*
+            if(!newNode.isWall()) {
+              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+              console.count("Left");
+            }
+            */ 
           }
         }
         //GO UP - ir arriba
-
         // la posicion de x del nodo actual es mayor a 0
         if (currentNode.position.x > 0) {
           // la nueva posicion es una nueva coordenada con la posicion de x-1 del nodo actual y la posicion y del nodo actual
@@ -56,6 +63,12 @@ class SearchAlgorithms { // implementacion de los algoritmos
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             // el nodo actual, la nueva posicion es una nueva coordenada y la matriz
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+            /*
+            if(!newNode.isWall()) {
+              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+              console.count("UP");
+            }
+            */ 
           }
         }
         //GO RIGHT - ir a la derecha
@@ -71,10 +84,37 @@ class SearchAlgorithms { // implementacion de los algoritmos
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             // el nodo actual, la nueva posicion es una nueva coordenada y la matriz
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+            /*
+            if(!newNode.isWall()) {
+              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+              console.count("Right"); opcion 1
+              let operacion = "Right"; opcion 2
+              console.count(operacion);
+
+            }*/ 
           }
         }
-        //GO DOWN - ir abajo
+        //JUMP RIGTH - salto a la izquierda
+        // la posicion de y del nodo actual es menor a la longitud de la matriz -2
+        if (currentNode.position.y < Matrix.matrix[0].length - 2) {
+          // la nueva posicion es una nueva coordenada con la posicion x del nodo actual y la posicion de y+2 del nodo actual
+          const newPosition = new Coordinate(currentNode.position.x, currentNode.position.y + 2);
 
+          // si las coordenadas del nuevo nodo son distintas a las del nodo
+          if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
+            // el nuevo nodo es igual un nodo que contiene el nodo actual, la nueva posicion es una nueva coordenada y la matriz         
+            const newNode = new Node(currentNode, newPosition, Matrix.matrix);
+            // el nodo actual, la nueva posicion es una nueva coordenada y la matriz
+            /*!newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));*/
+            
+            if(!newNode.isWall()) {
+              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+              console.count("JUMP RIGHT");
+            }            
+          }
+        }
+
+        //GO DOWN - ir abajo
         // la posicion de x del nodo actual es menor a la longitud de la matriz -1
         if (currentNode.position.x < Matrix.matrix.length - 1) {
           // la nueva posicion es una nueva coordenada con la posicion de x+1 del nodo actual y la posicion y del nodo actual
@@ -85,11 +125,18 @@ class SearchAlgorithms { // implementacion de los algoritmos
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             // el nodo actual, la nueva posicion es una nueva coordenada y la matriz
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+            /*
+            if(!newNode.isWall()) {
+              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+              console.count("Down");
+            }
+            */ 
           }
         }
       }
       currentNode = queue[0]; // el nodo actual es igual al primer elemento de la cola
     }
+    
     Solution.expandedNodes.push(queue[0]); // se agrega al final el primer elemento de la cola a los nodos expandidos
 
     try {
@@ -108,6 +155,9 @@ class SearchAlgorithms { // implementacion de los algoritmos
     let currentNode: Node = new Node(null, Mario.position, Matrix.matrix);
 
     queue.push(currentNode);
+
+   // ORDEN DE LAS OPERACIONES: abajo, derecha, arriba y izquierda
+
     while (queue.length && !currentNode.isPrincess()) {
       Solution.expandedNodes.push(queue.shift()!);
       if (!currentNode.isWall()) {
@@ -117,6 +167,12 @@ class SearchAlgorithms { // implementacion de los algoritmos
           if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.unshift(new Node(currentNode, newPosition, Matrix.matrix));
+             /*
+            if(!newNode.isWall()) {
+              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+              console.count("Down");
+            }
+            */
           }
         }
         //GO RIGHT
@@ -125,6 +181,12 @@ class SearchAlgorithms { // implementacion de los algoritmos
           if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.unshift(new Node(currentNode, newPosition, Matrix.matrix));
+            /*
+            if(!newNode.isWall()) {
+              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+              console.count("Right"); 
+            }
+            */
           }
         }
         //GO UP
@@ -133,6 +195,12 @@ class SearchAlgorithms { // implementacion de los algoritmos
           if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.unshift(new Node(currentNode, newPosition, Matrix.matrix));
+             /*
+            if(!newNode.isWall()) {
+              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+              console.count("UP"); 
+            }
+            */
           }
         }
         //GO LEFT
@@ -141,6 +209,12 @@ class SearchAlgorithms { // implementacion de los algoritmos
           if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.unshift(new Node(currentNode, newPosition, Matrix.matrix));
+             /*
+            if(!newNode.isWall()) {
+              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+              console.count("Left");
+            }
+            */ 
           }
         }
       }
@@ -178,6 +252,12 @@ class SearchAlgorithms { // implementacion de los algoritmos
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+             /*
+            if(!newNode.isWall()) {
+              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+              console.count("Left"); 
+            }
+            */
           }
         }
         //GO UP
@@ -192,6 +272,12 @@ class SearchAlgorithms { // implementacion de los algoritmos
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+             /*
+            if(!newNode.isWall()) {
+              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+              console.count("UP"); 
+            }
+            */
           }
         }
         //GO RIGHT
@@ -206,6 +292,12 @@ class SearchAlgorithms { // implementacion de los algoritmos
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+             /*
+            if(!newNode.isWall()) {
+              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+              console.count("Right"); 
+            }
+            */
           }
         }
         //GO DOWN
@@ -220,6 +312,12 @@ class SearchAlgorithms { // implementacion de los algoritmos
           if (currentNode.hasStar() || currentNode.isFlower() || !alreadyVisited) {
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+             /*
+            if(!newNode.isWall()) {
+              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+              console.count("Down"); 
+            }
+            */
           }
         }
       }
@@ -265,6 +363,12 @@ class SearchAlgorithms { // implementacion de los algoritmos
             // el nodo actual, la nueva posicion es una nueva coordenada, la matriz y el valor de heuristica
             !newNode.isWall() &&
               SearchAlgorithms.insertNodeByValue(queue, new Node(currentNode, newPosition, Matrix.matrix), "heuristic");
+            /*
+            if(!newNode.isWall()) {
+              SearchAlgorithms.insertNodeByValue(queue, new Node(currentNode, newPosition, Matrix.matrix), "heuristic");
+              console.count("LEFT"); 
+            }
+            */
           }
         }
         //GO UP - ir a arriba
@@ -277,6 +381,13 @@ class SearchAlgorithms { // implementacion de los algoritmos
             // el nodo actual, la nueva posicion es una nueva coordenada, la matriz y el valor de heuristica
             !newNode.isWall() &&
               SearchAlgorithms.insertNodeByValue(queue, new Node(currentNode, newPosition, Matrix.matrix), "heuristic");
+
+               /*
+            if(!newNode.isWall()) {
+              SearchAlgorithms.insertNodeByValue(queue, new Node(currentNode, newPosition, Matrix.matrix), "heuristic");
+              console.count("UP"); 
+            }
+            */
           }
         }
         //GO RIGHT 
@@ -288,6 +399,13 @@ class SearchAlgorithms { // implementacion de los algoritmos
             // el nodo actual, la nueva posicion es una nueva coordenada, la matriz y el valor de heuristica
             !newNode.isWall() &&
               SearchAlgorithms.insertNodeByValue(queue, new Node(currentNode, newPosition, Matrix.matrix), "heuristic");
+
+               /*
+            if(!newNode.isWall()) {
+              SearchAlgorithms.insertNodeByValue(queue, new Node(currentNode, newPosition, Matrix.matrix), "heuristic");
+              console.count("RIGHT"); 
+            }
+            */
           }
         }
         //GO DOWN
@@ -298,6 +416,12 @@ class SearchAlgorithms { // implementacion de los algoritmos
             // el nodo actual, la nueva posicion es una nueva coordenada, la matriz y el valor de heuristica
             !newNode.isWall() &&
               SearchAlgorithms.insertNodeByValue(queue, new Node(currentNode, newPosition, Matrix.matrix), "heuristic");
+              /*
+            if(!newNode.isWall()) {
+              SearchAlgorithms.insertNodeByValue(queue, new Node(currentNode, newPosition, Matrix.matrix), "heuristic");
+              console.count("DOWN"); 
+            }
+            */
           }
         }
       }
