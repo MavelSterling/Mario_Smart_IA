@@ -19,12 +19,16 @@ class Node {
   //flor: poder encendido (defecto falso) y disparo (defecto 0)
   flower: { isPowered: boolean; shotsLeft: number } = { isPowered: false, shotsLeft: 0 };
 
+ // operacion: string; // Agregar la operacion para imprimirla
+
+
   // constructor del nodo padre, posicion y estado del juego
   constructor(father: Node | null, position: Coordinate, gameState: string[][]) {
     this.position = position;
     this.gameState = gameState;
     this.object = Matrix.matrix[position.x][position.y] as Object; 
     this.father = father;
+   // this.operacion=this.operacion;
 
     // si es el nodo padre
     if (father) {
@@ -48,7 +52,6 @@ class Node {
         this.flower.shotsLeft--; // se disminuye la cantidad de balas
         cost = 1; // el costo de cada movimiento 
       }
-
       // el costo acumulado es el costo acumulado del nodo padre + del nodo
       this.accumulatedCost = father.accumulatedCost + cost;
 
@@ -58,6 +61,7 @@ class Node {
       // a la profundidad se le va sumando 1 a medida que se expanda los nodos
       this.depth = father.depth + 1; 
     }
+
     // si esta la estrella en el camino y no tiene la flor
     if (this.isStarInPath() && !this.hasFlower()) {
 
@@ -154,6 +158,7 @@ class Node {
       this.isFlower() && !this.path.find(n => n.position.x === this.position.x && n.position.y === this.position.y)
     );
   }
+
 }
 
 export default Node;
