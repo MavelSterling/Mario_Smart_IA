@@ -19,7 +19,7 @@ class Node {
   //flor: poder encendido (defecto falso) y disparo (defecto 0)
   flower: { isPowered: boolean; shotsLeft: number } = { isPowered: false, shotsLeft: 0 };
 
- // operacion: string; // Agregar la operacion para imprimirla
+  //operacion: string=""; // Agregar la operacion para imprimirla
 
 
   // constructor del nodo padre, posicion y estado del juego
@@ -28,7 +28,7 @@ class Node {
     this.gameState = gameState;
     this.object = Matrix.matrix[position.x][position.y] as Object; 
     this.father = father;
-   // this.operacion=this.operacion;
+    //this.operacion=this.operacion;
 
     // si es el nodo padre
     if (father) {

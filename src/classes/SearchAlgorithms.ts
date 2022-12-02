@@ -87,8 +87,10 @@ class SearchAlgorithms { // implementacion de los algoritmos
             
             if(!newNode.isWall()) {
               queue.push(new Node(currentNode, newPosition, Matrix.matrix));
-             /* console.count("Right"); opcion 1*/
-              let operacion = "Right"; // opcion 2
+              console.log("Right");
+      
+              /* console.count("Right"); opcion 1*/
+             // let operacion = "Right"; // opcion 2
              // console.log(operacion);
              /* console.count(operacion);*/
 
@@ -136,6 +138,7 @@ class SearchAlgorithms { // implementacion de los algoritmos
         }
       }
       currentNode = queue[0]; // el nodo actual es igual al primer elemento de la cola
+    
     }
     
     Solution.expandedNodes.push(queue[0]); // se agrega al final el primer elemento de la cola a los nodos expandidos
@@ -143,7 +146,11 @@ class SearchAlgorithms { // implementacion de los algoritmos
     try {
       Solution.solution = [...queue[0].path]; // la solucion es el camino de la cola
      // console.count("Right");
-      console.log(queue[0].father?.accumulatedCost); // costo del nodo padre
+      console.log("costo del ultimo nodo padre:",queue[0].father?.accumulatedCost); // costo del nodo padre
+      console.log("Camino del nodo padre:",queue[0].father?.path, "Coordenada del ultimo nodo padre:", queue[0].father?.position); //nodo padre
+     // console.log(queue[0].flower.shotsLeft);
+     //console.log(queue[0].object.length);
+
     } catch (error: any) {
       throw new Error("There is no path to find the princess :(");
     }
@@ -159,7 +166,7 @@ class SearchAlgorithms { // implementacion de los algoritmos
 
     queue.push(currentNode);
 
-   // ORDEN DE LAS OPERACIONES: abajo, derecha, arriba y izquierda
+      // ORDEN DE LAS OPERACIONES: izquierda, arriba, derecha y abajo
 
     while (queue.length && !currentNode.isPrincess()) {
       Solution.expandedNodes.push(queue.shift()!);
@@ -226,8 +233,13 @@ class SearchAlgorithms { // implementacion de los algoritmos
     Solution.expandedNodes.push(queue[0]);
 
     try {
+
       Solution.solution = [...queue[0].path];
-      console.log(queue[0].father?.accumulatedCost); // costo del nodo padre
+      console.log("costo del ultimo nodo padre:",queue[0].father?.accumulatedCost, 
+                   "La profundidad del arbol:", queue[0].father?.depth);
+      console.log("El costo acumulado al final:",queue[0].accumulatedCost);
+
+
     } catch (error: any) {
       throw new Error("There is no path to find the princess :(");
     }
@@ -333,6 +345,7 @@ class SearchAlgorithms { // implementacion de los algoritmos
       Solution.solution = [...queue[0].path];
       // console.log(queue[0].father?.accumulatedCost); // costo del nodo padre
      // console.log(queue[0].father?.depth); // depth del nodo padre
+          // console.log(queue[0].father?.position); // coordenada del nodo padre
 
     } catch (error: any) {
       throw new Error("There is no path to find the princess :(");
@@ -438,6 +451,12 @@ class SearchAlgorithms { // implementacion de los algoritmos
 
     try {
       Solution.solution = [...queue[0].path];
+      console.log("Coordenada final de la solucion",queue[0].position);
+      console.log("Coordenada anterior de la solucion",queue[0].position.x +1, queue[0].position.y +1);
+      console.log("Costo acumulado de la solución",queue[0].accumulatedCost);
+      console.log("valor del arbol de profundidad",queue[0].depth);
+      console.count(queue[0].object);
+
     } catch (error: any) {
       throw new Error("There is no path to find the princess :(");
     }
@@ -556,6 +575,18 @@ class SearchAlgorithms { // implementacion de los algoritmos
 
     try {
       Solution.solution = [...queue[0].path];
+      //console.log(Solution.solution);
+      console.log("Valor de f(n) del nodo final:", Matrix.costAndHeuristicValue(queue[0]));
+      console.log("El valor de g(n) del nodo final:", queue[0].accumulatedCost)
+      console.log("Valor de h(n) del nodo final:", Matrix.heuristicValue(queue[0].position));
+
+      //console.log("Valor de Manhattan del nodo padre:", Matrix.heuristicValue(queue[0].father?.position)*2);
+      //console.log("Valor de h(n) del nodo padre:", Matrix.heuristicValue(queue[0].father?.position));
+      console.log("El valor de g(n) del nodo final:", queue[0].father?.accumulatedCost);
+
+
+
+
     } catch (error: any) {
       throw new Error("There is no path to find the princess :(");
     }
