@@ -89,6 +89,21 @@ class Node {
     this.path.push(this);
   }
 
+  public vecesDerecha(): void{
+    let derecha = 0;
+    const caminoNodo: Array<Node> = this.path;
+    
+    //const nodoPadre: Array<Node> = this.father
+    for (let i=0; i < caminoNodo.length-1; i++){
+
+      if(caminoNodo[i].position.y < caminoNodo[i+1].position.y && 
+        caminoNodo[i].position.x === caminoNodo[i+1].position.x){
+        derecha = derecha + 1;
+      }
+    }
+    console.log("Solución a la derecha:", derecha);
+  }
+
   // variable si es blanco(casilla vacia):boolean
   public isBlank(): boolean {
     // Se retorna el objeto es igual al objeto blanco

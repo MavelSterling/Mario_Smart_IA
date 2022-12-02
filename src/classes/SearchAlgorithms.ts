@@ -87,8 +87,7 @@ class SearchAlgorithms { // implementacion de los algoritmos
             
             if(!newNode.isWall()) {
               queue.push(new Node(currentNode, newPosition, Matrix.matrix));
-              console.log("Right");
-      
+              console.count("Right");
               /* console.count("Right"); opcion 1*/
              // let operacion = "Right"; // opcion 2
              // console.log(operacion);
@@ -138,18 +137,20 @@ class SearchAlgorithms { // implementacion de los algoritmos
         }
       }
       currentNode = queue[0]; // el nodo actual es igual al primer elemento de la cola
-    
     }
     
     Solution.expandedNodes.push(queue[0]); // se agrega al final el primer elemento de la cola a los nodos expandidos
 
+    
     try {
       Solution.solution = [...queue[0].path]; // la solucion es el camino de la cola
      // console.count("Right");
       console.log("costo del ultimo nodo padre:",queue[0].father?.accumulatedCost); // costo del nodo padre
       console.log("Camino del nodo padre:",queue[0].father?.path, "Coordenada del ultimo nodo padre:", queue[0].father?.position); //nodo padre
-     // console.log(queue[0].flower.shotsLeft);
+      console.log(queue[0].flower.shotsLeft);
      //console.log(queue[0].object.length);
+    console.log(queue[0].vecesDerecha());
+    console.count(queue[0].object);
 
     } catch (error: any) {
       throw new Error("There is no path to find the princess :(");
