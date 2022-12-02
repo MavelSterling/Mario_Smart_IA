@@ -83,36 +83,37 @@ class SearchAlgorithms { // implementacion de los algoritmos
             // el nuevo nodo es igual un nodo que contiene el nodo actual, la nueva posicion es una nueva coordenada y la matriz         
             const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             // el nodo actual, la nueva posicion es una nueva coordenada y la matriz
-            !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));
-            /*
+            /* !newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));*/
+            
             if(!newNode.isWall()) {
               queue.push(new Node(currentNode, newPosition, Matrix.matrix));
-              console.count("Right"); opcion 1
-              let operacion = "Right"; opcion 2
-              console.count(operacion);
+             /* console.count("Right"); opcion 1*/
+              let operacion = "Right"; // opcion 2
+             // console.log(operacion);
+             /* console.count(operacion);*/
 
-            }*/ 
+            }
           }
         }
         //JUMP RIGTH - salto a la izquierda
         // la posicion de y del nodo actual es menor a la longitud de la matriz -2
-        if (currentNode.position.y < Matrix.matrix[0].length - 2) {
+       // if (currentNode.position.y < Matrix.matrix[0].length - 2) {
           // la nueva posicion es una nueva coordenada con la posicion x del nodo actual y la posicion de y+2 del nodo actual
-          const newPosition = new Coordinate(currentNode.position.x, currentNode.position.y + 2);
+        //  const newPosition = new Coordinate(currentNode.position.x, currentNode.position.y + 2);
 
           // si las coordenadas del nuevo nodo son distintas a las del nodo
-          if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
+        //  if (!currentNode.path.find(node => node.position.x === newPosition.x && node.position.y === newPosition.y)) {
             // el nuevo nodo es igual un nodo que contiene el nodo actual, la nueva posicion es una nueva coordenada y la matriz         
-            const newNode = new Node(currentNode, newPosition, Matrix.matrix);
+          //  const newNode = new Node(currentNode, newPosition, Matrix.matrix);
             // el nodo actual, la nueva posicion es una nueva coordenada y la matriz
             /*!newNode.isWall() && queue.push(new Node(currentNode, newPosition, Matrix.matrix));*/
             
-            if(!newNode.isWall()) {
-              queue.push(new Node(currentNode, newPosition, Matrix.matrix));
-              console.count("JUMP RIGHT");
-            }            
-          }
-        }
+         //   if(!newNode.isWall()) {
+          //    queue.push(new Node(currentNode, newPosition, Matrix.matrix));
+         //     console.count("JUMP RIGHT");
+        //    }            
+        //  }
+        //}
 
         //GO DOWN - ir abajo
         // la posicion de x del nodo actual es menor a la longitud de la matriz -1
@@ -141,6 +142,8 @@ class SearchAlgorithms { // implementacion de los algoritmos
 
     try {
       Solution.solution = [...queue[0].path]; // la solucion es el camino de la cola
+     // console.count("Right");
+      console.log(queue[0].father?.accumulatedCost); // costo del nodo padre
     } catch (error: any) {
       throw new Error("There is no path to find the princess :(");
     }
@@ -224,6 +227,7 @@ class SearchAlgorithms { // implementacion de los algoritmos
 
     try {
       Solution.solution = [...queue[0].path];
+      console.log(queue[0].father?.accumulatedCost); // costo del nodo padre
     } catch (error: any) {
       throw new Error("There is no path to find the princess :(");
     }
@@ -327,6 +331,9 @@ class SearchAlgorithms { // implementacion de los algoritmos
 
     try {
       Solution.solution = [...queue[0].path];
+      // console.log(queue[0].father?.accumulatedCost); // costo del nodo padre
+     // console.log(queue[0].father?.depth); // depth del nodo padre
+
     } catch (error: any) {
       throw new Error("There is no path to find the princess :(");
     }
